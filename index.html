@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
-    <script src="script.js"></script>
+    <script src="getWords.js"></script>
     <title>Typing-Practice</title>
   </head>
   <body>
@@ -17,7 +17,9 @@
     </div>
     <div class="body__typing-container">
       <p class="typing-container__welcome-headline">Typing</p>
-      <div class="body__typing-area">
+      <div class="typing-container__typing-area">
+        <button onclick="getWord('https://random-word-api.herokuapp.com/word?number=20')">Generate Text</button>
+        <p id="text" class="typing-area__text"></p>
       </div>
     </div>
 

@@ -3,23 +3,26 @@ body {
 }
 
 .welcome-container__welcome-headline {
-  text-align: center;
+  position: relative;
+  left: 25%;
+  margin: 0%;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .welcome-container__welcome-paragraph{
-  text-align: center;
+  text-align: left;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15pt;
+  margin: 0%;
 }
 
 .body__stats-container {
   background-color: grey;
-  height: 300px;
-  width: 600px;
+  height: 50%;
+  width: 850px;
   position: absolute;
   text-align: center;
-  left: 33%;
+  border: 2px solid black
 }
 
 .stats-container__stats-headline {
@@ -29,15 +32,27 @@ body {
 
 .body__typing-container {
   background-color: grey;
-  height: 300px;
-  width: 700px;
+  height: 100%;
+  width: 850px;
   position: absolute;
-  left: 30%;
-  top: 49%;
+  top: 60%;
 }
 
 .typing-container__welcome-headline {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15pt;
+  margin: 0%;
+}
+
+.typing-container__typing-area {
+  height: 100%;
+}
+
+.typing-area__text {
+  font-size: 15pt;
+  height: 100%;
+  margin: 0%;
+  background-color: gray;
+  border: 2px solid black;
 }
