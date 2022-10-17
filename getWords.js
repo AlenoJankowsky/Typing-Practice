@@ -8,6 +8,5 @@ async function getWord(webAPI) {
     element.innerHTML = element.innerHTML.replace(/\u005D/g,'');
     element.innerHTML = element.innerHTML.replace(/\u005B/g,'');
     element.innerHTML = element.innerHTML.replace(/,/g,' ');
-    
   }
 }
