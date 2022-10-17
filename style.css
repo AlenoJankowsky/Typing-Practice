@@ -1,0 +1,43 @@
+body {
+  background-color: aqua;
+}
+
+.welcome-container__welcome-headline {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.welcome-container__welcome-paragraph{
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15pt;
+}
+
+.body__stats-container {
+  background-color: grey;
+  height: 300px;
+  width: 600px;
+  position: absolute;
+  text-align: center;
+  left: 33%;
+}
+
+.stats-container__stats-headline {
+  text-decoration: underline;
+  font-size: 15pt;
+}
+
+.body__typing-container {
+  background-color: grey;
+  height: 300px;
+  width: 700px;
+  position: absolute;
+  left: 30%;
+  top: 49%;
+}
+
+.typing-container__welcome-headline {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15pt;
+}
