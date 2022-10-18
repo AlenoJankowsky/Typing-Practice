@@ -18,7 +18,10 @@
     <div class="body__typing-container">
       <p class="typing-container__welcome-headline">Typing</p>
       <div class="typing-container__typing-area">
-        <button onclick="getWord('https://random-word-api.herokuapp.com/word?number=20')">Generate Text</button>
+        <form>
+          <input type="text" id="amount-of-words" class="typing-container__input-for-amount-of-words-in-text">
+          <input type="button" id="generate-text-button" value="Generate Text">
+        </form>
         <p id="text" class="typing-area__text"></p>
       </div>
     </div>
