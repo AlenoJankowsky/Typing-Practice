@@ -1,24 +1,34 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const generateTextButton = document.getElementById('generate-text-button');
-  
-  generateTextButton.addEventListener('click', async function() {
-    const amountOfWordsWanted = document.getElementById('amount-of-words').value;
-    const amountOfWordsWantedToString = amountOfWordsWanted.toString();
-    const webAPI = 'https://random-word-api.herokuapp.com/word?number=' + amountOfWordsWantedToString;
-    const fetchText = await fetch(webAPI);
-    const text = await fetchText.text();
-    const resultText = cleanText(text);
-    const paragraphWithText = document.getElementById('text');
-    for (let textIterator = 0; textIterator < resultText.length; textIterator++) {
-      paragraphWithText.innerHTML = resultText.slice(textIterator, textIterator + 1);
-      if (textIterator == 0) {
-        break;
-      }
-    }
-    
-    paragraphWithText.style.textDecoration = 'underline';
-    paragraphWithText.innerHTML = paragraphWithText.innerHTML + resultText.slice(1, resultText.length + 1);
+const generateTextButton = document.getElementById('generate-text-button');
+const paragraphWithText = document.getElementById('text');
 
+var span = null;
+
+generateTextButton.addEventListener('click', async function() {
+  const amountOfWordsWanted = document.getElementById('amount-of-words').value;
+  const amountOfWordsWantedToString = amountOfWordsWanted.toString();
+  const webAPI = 'https://random-word-api.herokuapp.com/word?number=' + amountOfWordsWantedToString;
+  const fetchText = await fetch(webAPI);
+  const text = await fetchText.text();
+  const resultText = cleanText(text);
+  paragraphWithText.innerHTML = resultText;
+
+  if (span != null) {
+    span.removeChild(spanText);
+  }
+
+  span = document.createElement('span');
+  var spanText = document.createTextNode(resultText);
+  span.appendChild(spanText);
+
+  document.addEventListener('keydown', function(event){
+    
+    paragraphWithText.appendChild(span);
+    if (resultText.charAt(0) == event.key) {
+      paragraphWithText.style.color = 'green';
+    }
+    else {
+      paragraphWithText.style.color = 'red';
+    }
   });
 });
 
