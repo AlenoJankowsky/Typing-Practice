@@ -12,17 +12,12 @@ generateTextButton.addEventListener('click', async function() {
   const resultText = cleanText(text);
   paragraphWithText.innerHTML = resultText;
 
-  if (span != null) {
-    span.removeChild(spanText);
-  }
-
   span = document.createElement('span');
   var spanText = document.createTextNode(resultText);
   span.appendChild(spanText);
 
   document.addEventListener('keydown', function(event){
-    
-    paragraphWithText.appendChild(span);
+    console.log(resultText.charAt(0));
     if (resultText.charAt(0) == event.key) {
       paragraphWithText.style.color = 'green';
     }
