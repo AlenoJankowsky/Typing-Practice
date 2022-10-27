@@ -1,29 +1,31 @@
 const generateTextButton = document.getElementById('generate-text-button');
 const paragraphWithText = document.getElementById('text');
 
-var span = null;
-
 generateTextButton.addEventListener('click', async function() {
+  let textArray = [];
   const amountOfWordsWanted = document.getElementById('amount-of-words').value;
   const amountOfWordsWantedToString = amountOfWordsWanted.toString();
   const webAPI = 'https://random-word-api.herokuapp.com/word?number=' + amountOfWordsWantedToString;
   const fetchText = await fetch(webAPI);
   const text = await fetchText.text();
   const resultText = cleanText(text);
-  paragraphWithText.innerHTML = resultText;
 
-  span = document.createElement('span');
-  var spanText = document.createTextNode(resultText);
-  span.appendChild(spanText);
+  for (const element of resultText) {
+    textArray.push(element);
+  }
 
-  document.addEventListener('keydown', function(event){
-    console.log(resultText.charAt(0));
-    if (resultText.charAt(0) == event.key) {
-      paragraphWithText.style.color = 'green';
-    }
-    else {
-      paragraphWithText.style.color = 'red';
-    }
+  paragraphWithText.innerHTML = textArray;
+  document.addEventListener('keydown', function(event) {
+    paragraphWithText.innerHTML = textArray;
+    let charIterator = 0;
+    for (let loopIterator = 0; loopIterator < textArray.length; loopIterator++)
+      if (textArray[charIterator] == event.key) {
+        let span = document.createElement('span');
+        textArray[charIterator] = span[charIterator];
+        textArray[charIterator].style.color = 'green';
+
+        charIterator += 1;
+      }
   });
 });
 
