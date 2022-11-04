@@ -1,8 +1,8 @@
-import {cleanText} from "./displayText.js";
 import {charArrayIntoString} from "./displayText.js";
 import {markCurrentChar} from "./displayText.js";
 import {markIncorrectChar} from "./displayText.js";
 import {displayStats} from "./displayStats.js";
+import {getTextFromApi} from "./getTextFromApi.js";
 
 export function playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, seconds, userMistakesCount, userKeyTypeCount, intervalIsUsed) {
   generateTextButton.addEventListener('click', async function() {
@@ -19,12 +19,8 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
     }
   
     let textArray = [];
-    const amountOfWordsWanted = document.getElementById('amount-of-words').value;
-    const amountOfWordsWantedToString = amountOfWordsWanted.toString();
-    const webAPI = 'https://random-word-api.herokuapp.com/word?number=' + amountOfWordsWantedToString;
-    const fetchText = await fetch(webAPI);
-    const text = await fetchText.text();
-    const resultText = cleanText(text);
+    
+    let resultText = await getTextFromApi();
 
     for (const element of resultText) {
       textArray.push(element);
