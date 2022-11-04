@@ -1,8 +1,8 @@
-import {charArrayIntoString} from "./displayText.js";
 import {markCurrentChar} from "./displayText.js";
 import {markIncorrectChar} from "./displayText.js";
 import {displayStats} from "./displayStats.js";
-import {getTextFromApi} from "./getTextFromApi.js";
+import {createIterableCharArray} from "./createIterableCharArray.js";
+import {charArrayIntoString} from "./displayText.js";
 
 export function playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, seconds, userMistakesCount, userKeyTypeCount, intervalIsUsed) {
   generateTextButton.addEventListener('click', async function() {
@@ -18,19 +18,13 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
       }, 1000);
     }
   
-    let textArray = [];
-    
-    let resultText = await getTextFromApi();
-
-    for (const element of resultText) {
-      textArray.push(element);
-    }
-
-    paragraphWithText.innerHTML = charArrayIntoString(textArray);
-
+    let charArray = await createIterableCharArray(paragraphWithText);
+  
     let charIndex = 0;
+    paragraphWithText.innerHTML = charArrayIntoString(charArray);
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
 
+  
     inputButton.addEventListener('keydown', function(event) {
       if (event.code == 'Space') {
         event.preventDefault();
@@ -53,8 +47,8 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
       paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
     });
 
-    document.addEventListener('keydown', function(event) {
-      const isWhiteSpace = event.code == 'Space' && textArray[charIndex + 1] == " ";
+    document.addEventListener('keydown', async function(event) {
+      const isWhiteSpace = event.code == 'Space' && charArray[charIndex + 1] == " ";
       if (isWhiteSpace) {
         charIndex += 1;
         event.preventDefault();
@@ -66,11 +60,7 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
         userKeyTypeCount += 1;
       }
 
-      if (charIndex == textArray.length - 1) {
-        return;
-      }
-
-      const userInputIsCorrect = textArray[charIndex] == event.key;
+      const userInputIsCorrect = charArray[charIndex] == event.key;
       if (userInputIsCorrect) {
         charIndex += 1;
         paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
@@ -83,5 +73,9 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
         statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
       }
     });
+
+    if (charIndex == charArray.length - 1) { 
+      return 1;
+    }  
   });
 }
