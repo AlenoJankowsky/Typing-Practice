@@ -52,20 +52,17 @@ var intervalIsUsed = false;
 
 displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
 
+function incrementSeconds() {
+  intervalIsUsed = true;
+  seconds += 1;
+  displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
+}
+
 generateTextButton.addEventListener('click', async function() {
   seconds = 0;
   displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
 
-  function incrementSeconds() {
-    if (intervalIsUsed) {return false;}
-
-    intervalIsUsed = true;
-    seconds += 1;
-    displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
-    intervalIsUsed = false;
-  }
-
-    setInterval(incrementSeconds, 1000);
+  if (!intervalIsUsed) {setInterval(incrementSeconds, 1000);}
 
   let textArray = [];
   const amountOfWordsWanted = document.getElementById('amount-of-words').value;
