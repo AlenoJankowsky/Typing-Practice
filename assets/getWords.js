@@ -1,6 +1,9 @@
 import {displayStats} from "./displayStats.js";
 import {cleanText} from "./displayText.js";
 import {charArrayIntoString} from "./displayText.js";
+import {markCurrentChar} from "./displayText.js";
+import {markIncorrectChar} from "./displayText.js"
+import {incrementSeconds} from "./timeHandler.js";
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
@@ -8,38 +11,12 @@ const statsText = document.getElementById('stats-text');
 const inputButton = document.getElementById('generate-text-button');
 var paragraphWithText = document.getElementById('text');
 
-function markCurrentChar(paragraphWithText, charIndex) {
-  let span = document.createElement('span');
-  let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
-  span.appendChild(textForSpan);
-  span.style.backgroundColor = 'white';
-  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
-
-  return resultParagraphText;
-}
-
-function markIncorrectChar(paragraphWithText, charIndex) {
-  let span = document.createElement('span');
-  let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
-  span.appendChild(textForSpan);
-  span.style.color = 'red';
-  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
-
-  return resultParagraphText;
-}
-
 var seconds = 0;
 var userMistakesCount = 0;
 var userKeyTypeCount = 0;
 var intervalIsUsed = false;
 
 displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
-
-function incrementSeconds() {
-  intervalIsUsed = true;
-  seconds += 1;
-  displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
-}
 
 generateTextButton.addEventListener('click', async function() {
   seconds = 0;

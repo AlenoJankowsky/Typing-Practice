@@ -16,3 +16,23 @@ export function charArrayIntoString(textArray) {
 
   return resultString;
 }
+
+export function markCurrentChar(paragraphWithText, charIndex) {
+  let span = document.createElement('span');
+  let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
+  span.appendChild(textForSpan);
+  span.style.backgroundColor = 'white';
+  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
+
+  return resultParagraphText;
+}
+
+export function markIncorrectChar(paragraphWithText, charIndex) {
+  let span = document.createElement('span');
+  let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
+  span.appendChild(textForSpan);
+  span.style.color = 'red';
+  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
+
+  return resultParagraphText;
+}
