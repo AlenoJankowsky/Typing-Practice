@@ -1,29 +1,12 @@
 import {displayStats} from "./displayStats.js";
+import {cleanText} from "./displayText.js";
+import {charArrayIntoString} from "./displayText.js";
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
 const statsText = document.getElementById('stats-text');
 const inputButton = document.getElementById('generate-text-button');
 var paragraphWithText = document.getElementById('text');
-
-function cleanText(text) {
-  const resultText = text
-    .replaceAll(',', " ")
-    .replaceAll('"', "")
-    .replaceAll('[', "")
-    .replaceAll(']', "");
-
-  return resultText;
-}
-
-function charArrayIntoString(textArray) {
-  var resultString = "";
-  for (const char of textArray) {
-    resultString += char;
-  }
-
-  return resultString;
-}
 
 function markCurrentChar(paragraphWithText, charIndex) {
   let span = document.createElement('span');
