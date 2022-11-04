@@ -1,6 +1,10 @@
+import {displayStats} from "./displayStats.js";
+
 const generateTextButton = document.getElementById('generate-text-button');
-var paragraphWithText = document.getElementById('text');
+const resetProgressButton = document.getElementById('reset-button');
+const statsText = document.getElementById('stats-text');
 const inputButton = document.getElementById('generate-text-button');
+var paragraphWithText = document.getElementById('text');
 
 function cleanText(text) {
   const resultText = text
@@ -36,12 +40,33 @@ function markIncorrectChar(paragraphWithText, charIndex) {
   let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
   span.appendChild(textForSpan);
   span.style.color = 'red';
-  //let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
+  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
 
-  return span.outerHTML;
+  return resultParagraphText;
 }
 
+var seconds = 0;
+var userMistakesCount = 0;
+var userKeyTypeCount = 0;
+var intervalIsUsed = false;
+
+displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
+
 generateTextButton.addEventListener('click', async function() {
+  seconds = 0;
+  displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
+
+  function incrementSeconds() {
+    if (intervalIsUsed) {return false;}
+
+    intervalIsUsed = true;
+    seconds += 1;
+    displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
+    intervalIsUsed = false;
+  }
+
+    setInterval(incrementSeconds, 1000);
+
   let textArray = [];
   const amountOfWordsWanted = document.getElementById('amount-of-words').value;
   const amountOfWordsWantedToString = amountOfWordsWanted.toString();
@@ -67,14 +92,32 @@ generateTextButton.addEventListener('click', async function() {
     }
   });
 
-  document.addEventListener('keydown', function(event) {
-    console.log("kek");
+  resetProgressButton.addEventListener('keydown', function(event) {
+    if (event.code == 'Space') {
+      event.preventDefault();
 
-    if (event.code == 'Space' && textArray[charIndex + 1] == " ") {
+      return;
+    }
+  });
+
+  resetProgressButton.addEventListener('click', function() {
+    charIndex = 0;
+    seconds = 0;
+    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
+  });
+
+  
+  document.addEventListener('keydown', function(event) {
+    const isWhiteSpace = event.code == 'Space' && textArray[charIndex + 1] == " ";
+    if (isWhiteSpace) {
       charIndex += 1;
       event.preventDefault();
 
       return;
+    }
+
+    if (event.code != 'Space') {
+      userKeyTypeCount += 1;
     }
 
     if (charIndex == textArray.length - 1) {
@@ -88,9 +131,10 @@ generateTextButton.addEventListener('click', async function() {
     }
 
     if (!userInputIsCorrect) {
-      let span = markIncorrectChar(paragraphWithText, charIndex);
-      console.log(span);
-      paragraphWithText.innerHTML = paragraphWithText.innerText.replace(paragraphWithText.innerText[charIndex], span);
+      userMistakesCount += 1;
+      paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
     }
+
+    displayStats(statsText, seconds, userMistakesCount, userKeyTypeCount);
   });
 });

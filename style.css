@@ -23,11 +23,20 @@ body {
   position: absolute;
   text-align: center;
   border: 2px solid black;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .stats-container__stats-headline {
   text-decoration: underline;
   font-size: 15pt;
+}
+
+.stats-container__last-set-headline {
+  text-decoration: underline;
+}
+
+.stats-container__stats-text {
+  text-align: center;
 }
 
 .body__typing-container {
@@ -47,6 +56,17 @@ body {
 
 .typing-container__typing-area {
   height: 100%;
+}
+
+.typing-area__generate-text-button {
+  border: 1px solid black;
+}
+
+.typing-container__reset-button {
+  position: absolute;
+  top: 23.2px;
+  left: 285px;
+  border: 1px solid black;
 }
 
 .typing-area__text {
