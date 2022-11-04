@@ -2,7 +2,7 @@ body {
   background-color: aqua;
 }
 
-.welcome-container__welcome-headline {
+.welcome-container__headline {
   position: relative;
   left: 25%;
   margin: 0%;
@@ -16,7 +16,7 @@ body {
   margin: 0%;
 }
 
-.body__stats-container {
+.stats-container {
   background-color: grey;
   height: 50%;
   width: 850px;
@@ -39,7 +39,7 @@ body {
   text-align: center;
 }
 
-.body__typing-container {
+.typing-container {
   background-color: grey;
   height: 100%;
   width: 850px;
