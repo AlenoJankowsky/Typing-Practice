@@ -7,4 +7,3 @@ export function displayStats(statsText, seconds, userMistakesCount, userKeyTypeC
 
   statsText.innerHTML = 'Seconds: ' + seconds + ', ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '% Wrong Chars';
 }
-
