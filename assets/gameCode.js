@@ -6,10 +6,13 @@ import {charArrayIntoString} from "./displayText.js";
 import {displayTodayStats} from "./displayStats.js";
 import {displayParagraphs} from "./displayText.js";
 
-export function playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, seconds, userMistakesCount, userKeyTypeCount, intervalIsUsed, amountOfSets, todayStatsText, charArray, charIndex) {
+export function playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, intervalIsUsed, amountOfSets, todayStatsText, charArray, seconds) {
+  let charIndex = 0;
+  let userKeyTypeCount = 0;
+  let userMistakesCount = 0;
   generateTextButton.addEventListener('click', async function() {
     seconds = 0;
-    charIndex = 0;
+
     charArray = await createIterableCharArray(paragraphWithText);
     statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
     todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
@@ -59,15 +62,8 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
         return;
       }
 
-      if (charIndex == charArray.length) {
-        amountOfSets += 1;
-        displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
-        
-        return;
-      }  
-
       if (event.code != 'Space') {userKeyTypeCount += 1;}
-      
+
       const userInputIsCorrect = charArray[charIndex] == event.key;
       if (userInputIsCorrect) {
         if (charArray[charIndex + 1] != undefined) {charIndex += 1;};
@@ -83,6 +79,13 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
 
         return;
       }
+
+      if (charIndex == charArray.length) {
+        amountOfSets += 1;
+        displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
+        
+        return;
+      }  
     });
   });
 }

@@ -10,14 +10,11 @@ const inputButton = document.getElementById('generate-text-button');
 let paragraphWithText = document.getElementById('text');
 
 let seconds = 0;
-let userMistakesCount = 0;
-let userKeyTypeCount = 0;
 let amountOfSets = 0;
 let intervalIsUsed = false;
 let charArray = [];
-let charIndex = 0;
 
-statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
-todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+statsText.innerHTML = 'Seconds: ' + '0' + ', ' + displayStats(0, 0);
+todayStatsText.innerHTML = displayTodayStats(0, 0, 0, 0);
 
-playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, seconds, userMistakesCount, userKeyTypeCount, intervalIsUsed, amountOfSets, todayStatsText, charArray, charIndex);
+playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, intervalIsUsed, amountOfSets, todayStatsText, charArray, seconds);
