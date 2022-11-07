@@ -7,13 +7,13 @@ import {charArrayIntoString} from "./displayText.js";
 export function playTypingPractice(generateTextButton, resetProgressButton, statsText, inputButton, paragraphWithText, seconds, userMistakesCount, userKeyTypeCount, intervalIsUsed) {
   generateTextButton.addEventListener('click', async function() {
     seconds = 0;
-    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
+    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
 
     if (!intervalIsUsed) {
       setInterval(function() {
         seconds += 1;
         intervalIsUsed = true;
-        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
+        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
   
       }, 1000);
     }
@@ -64,13 +64,13 @@ export function playTypingPractice(generateTextButton, resetProgressButton, stat
       if (userInputIsCorrect) {
         charIndex += 1;
         paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
+        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
       }
 
       if (!userInputIsCorrect) {
         userMistakesCount += 1;
         paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
-        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount);
+        statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
       }
     });
 
