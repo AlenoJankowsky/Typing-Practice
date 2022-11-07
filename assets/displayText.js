@@ -1,3 +1,6 @@
+import {displayStats} from "./displayStats.js";
+import {displayTodayStats} from "./displayStats.js";
+
 export function cleanText(text) {
   const resultText = text
     .replaceAll(',', " ")
@@ -35,4 +38,18 @@ export function markIncorrectChar(paragraphWithText, charIndex) {
   let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
 
   return resultParagraphText;
+}
+
+export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets) {
+  if (userInputIsCorrect) {
+    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
+    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
+    todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+  }
+  
+  if (!userInputIsCorrect) {
+    paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
+    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
+    todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+  }
 }

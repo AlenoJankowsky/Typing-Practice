@@ -39,6 +39,10 @@ body {
   text-align: center;
 }
 
+.stats-container__today-headline {
+  text-decoration: underline;
+}
+
 .typing-container {
   background-color: grey;
   height: 100%;
