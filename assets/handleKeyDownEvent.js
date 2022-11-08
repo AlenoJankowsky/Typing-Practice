@@ -10,25 +10,14 @@ export function handleKeyDownEvent(event, paragraphWithText, statsText, todaySta
 
   if (event.code != 'Space') {userKeyTypeCount += 1;}
 
-  const userInputIsCorrect = charArray[charIndex] == event.key;
-  console.log(event.key);
-  console.log(charArray[charIndex]);
-  console.log(userInputIsCorrect);
-  if (userInputIsCorrect) {
-    if (charArray[charIndex + 1] != undefined) {charIndex += 1;};
-
-    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-    displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
-  }
-
-  if (!userInputIsCorrect) {
-    userMistakesCount += 1;
-    displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
-    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  }
-
   if (charIndex == charArray.length) {
     amountOfSets += 1;
-    displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
+
+    return;
   }  
+
+  const userInputIsCorrect = charArray[charIndex] == event.key;
+  displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
+
+  return charIndex + 1;
 }
