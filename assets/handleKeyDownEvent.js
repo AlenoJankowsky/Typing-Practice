@@ -8,7 +8,9 @@ export function handleKeyDownEvent(event, paragraphWithText, statsText, todaySta
     event.preventDefault();
   }
 
-  if (event.code != 'Space') {userKeyTypeCount += 1;}
+  if (event.code != 'Space') {
+    userKeyTypeCount += 1;
+  }
 
   if (charIndex == charArray.length) {
     amountOfSets += 1;
