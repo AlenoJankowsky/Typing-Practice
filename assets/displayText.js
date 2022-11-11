@@ -45,11 +45,11 @@ export function displayParagraphs(userInputIsCorrect, paragraphWithText, charInd
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
     statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
     todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+
+    return;
   }
-  
-  if (!userInputIsCorrect) {
-    paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex + 1);
-    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
-    todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
-  }
+
+  paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex + 1);
+  statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
 }
