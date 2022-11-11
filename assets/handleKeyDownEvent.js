@@ -11,7 +11,8 @@ export function handleKeyDownEvent(event, paragraphWithText, statsText, todaySta
     userKeyTypeCount += 1;
   }
 
-  if (charIndex == charArray.length) {
+  const endOfArrayIsReached = charIndex == charArray.length;
+  if (endOfArrayIsReached) {
     amountOfSets += 1;
 
     return;
