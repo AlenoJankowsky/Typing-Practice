@@ -1,5 +1,4 @@
 import {displayParagraphs} from "./displayText.js";
-import {markCurrentChar} from "./displayText.js";
 
 export function handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets) {
   const isWhiteSpace = event.code == 'Space' && charArray[charIndex + 1] == " ";
