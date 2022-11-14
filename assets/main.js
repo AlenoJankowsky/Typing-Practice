@@ -25,8 +25,12 @@ statsText.innerHTML = displayStats(0, 0);
 todayStatsText.innerHTML = displayTodayStats(0, 0, 0, 0);
 
 generateTextButton.addEventListener('click', async function() {
+  charArray = await generateText(paragraphWithText);
   charIndex = 0;
   seconds = 0;
+  userKeyTypeCount = 0;
+  userMistakesCount = 0;
+
   const incrementSecondsInterval = setInterval(function() {
     seconds = incrementSeconds(seconds, statsTextForSeconds);
     let minutes = seconds / 60;
@@ -43,29 +47,35 @@ generateTextButton.addEventListener('click', async function() {
     clearInterval(incrementSecondsInterval);
   }
 
-  charArray = await generateText(paragraphWithText);
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
   document.addEventListener('keydown', function(event) {
+    const userInputIsCorrect = charArray[charIndex] == event.key;
     if (generateTextButtonIsClicked) {
+      if (!userInputIsCorrect) {
+        userMistakesCount += 1;
+      }
+
       if (event.code != 'Space') {
         userKeyTypeCount += 1;
       }
 
-      const endOfArrayIsReached = charIndex == charArray.length;
+      const endOfArrayIsReached = charIndex == charArray.length - 1;
       if (endOfArrayIsReached) {
         amountOfSets += 1;
-    
-        return;
       }  
-
+      console.log(charIndex);
       charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
     }
   });
 
   generateTextButtonIsClicked = true;
+  resetProgressButton.addEventListener('click', function() {
+    charIndex = 0;
+    seconds = 0;
+    userKeyTypeCount = 0;
+    userMistakesCount = 0;
+    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
+    statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+  });
 });
-
-resetProgressButton.addEventListener('click', function() {
-  resetProgress(seconds, charIndex, userKeyTypeCount, userMistakesCount, paragraphWithText);
-});
-

@@ -1,6 +1,12 @@
 import {displayStats} from "./displayStats.js";
 import {displayTodayStats} from "./displayStats.js";
 
+function createResultParagraphText(paragraphWithText, charIndex, span) {
+    const resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
+
+    return resultParagraphText;
+}
+
 export function cleanText(text) {
   const resultText = text
     .replaceAll(',', " ")
@@ -25,9 +31,8 @@ export function markCurrentChar(paragraphWithText, charIndex) {
   let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
   span.appendChild(textForSpan);
   span.style.backgroundColor = 'white';
-  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
 
-  return resultParagraphText;
+  return createResultParagraphText(paragraphWithText, charIndex, span);
 }
 
 export function markIncorrectChar(paragraphWithText, charIndex) {
@@ -35,23 +40,22 @@ export function markIncorrectChar(paragraphWithText, charIndex) {
   let textForSpan = document.createTextNode(paragraphWithText.innerText[charIndex]);
   span.appendChild(textForSpan);
   span.style.color = 'red';
-  let resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
 
-  return resultParagraphText;
+  return createResultParagraphText(paragraphWithText, charIndex, span);
 }
 
 export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets) {
   if (userInputIsCorrect) {
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
     statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-    todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
 
     return charIndex += 1;
   }
 
-  paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex + 1);
+  paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-  todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
   
   return charIndex;
 }
