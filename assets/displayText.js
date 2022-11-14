@@ -45,11 +45,14 @@ export function displayParagraphs(userInputIsCorrect, paragraphWithText, charInd
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
     statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
     todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+    charIndex ++;
 
-    return;
+    return charIndex;
   }
 
   paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex + 1);
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
+  
+  return charIndex;
 }

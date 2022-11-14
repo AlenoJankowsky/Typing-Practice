@@ -29,7 +29,7 @@ export function handleKeyDownEvent(event, paragraphWithText, statsText, todaySta
   }  
 
   const userInputIsCorrect = charArray[charIndex] == event.key;
-  displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
+  charIndex = displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets);
 
-  return charIndex + 1;
+  return charIndex;
 }
