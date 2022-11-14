@@ -29,6 +29,15 @@ generateTextButton.addEventListener('click', async function() {
   seconds = 0;
   const incrementSecondsInterval = setInterval(function() {
     seconds = incrementSeconds(seconds, statsTextForSeconds);
+    let minutes = seconds / 60;
+    const charactersPerMinute = userKeyTypeCount / minutes;
+
+    if (userKeyTypeCount == 0) {
+      statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
+    }
+    else {
+      statsText.innerHTML = 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '%';
+    }
   }, 1000);
   if (generateTextButtonIsClicked) {
     clearInterval(incrementSecondsInterval);
@@ -38,6 +47,17 @@ generateTextButton.addEventListener('click', async function() {
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
   document.addEventListener('keydown', function(event) {
     if (generateTextButtonIsClicked) {
+      if (event.code != 'Space') {
+        userKeyTypeCount += 1;
+      }
+
+      const endOfArrayIsReached = charIndex == charArray.length;
+      if (endOfArrayIsReached) {
+        amountOfSets += 1;
+    
+        return;
+      }  
+
       charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
     }
   });
