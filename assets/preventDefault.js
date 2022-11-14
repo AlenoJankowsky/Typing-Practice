@@ -1,12 +1,10 @@
-export function preventSpaceBar(button) {
-  button.addEventListener('keydown', function(event) {
-    if (event.code == 'Space') {
-      event.stopPropagation();
-      event.preventDefault();
-
-      return;
-    }
+export function preventSpaceBar(event, charArray, charIndex) {
+  if (event.code == 'Space' && charArray[charIndex + 1] != " ") {
+    event.stopPropagation();
+    event.preventDefault();
 
     return;
-  }); 
+  }
+
+  return;
 }
