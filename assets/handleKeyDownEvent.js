@@ -5,6 +5,10 @@ const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
 
 export function handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets) {
+  preventSpaceBar(generateTextButton);
+  preventSpaceBar(resetProgressButton);
+  preventSpaceBar(window);
+
   const isWhiteSpace = event.code == 'Space' && charArray[charIndex + 1] == " ";
   if (isWhiteSpace) {
     charIndex += 1;
@@ -12,9 +16,6 @@ export function handleKeyDownEvent(event, paragraphWithText, statsText, todaySta
 
     return;
   }
-
-  preventSpaceBar(event, generateTextButton);
-  preventSpaceBar(event, resetProgressButton);
 
   if (event.code != 'Space') {
     userKeyTypeCount += 1;
