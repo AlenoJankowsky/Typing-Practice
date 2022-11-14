@@ -35,12 +35,31 @@ body {
   text-decoration: underline;
 }
 
+.stats-container__time-text {
+  text-align: center;
+  position: absolute;
+  top: 19%;
+  left: 35%;
+}
+
 .stats-container__text {
   text-align: center;
+  position: absolute;
+  top: 19%;
+  left: 46%;
 }
 
 .stats-container__today-headline {
   text-decoration: underline;
+  position: absolute;
+  top: 24%;
+  left: 47%;
+}
+
+.stats-container__today-text {
+  position: absolute;
+  top: 30%;
+  left: 40%;
 }
 
 .typing-container {

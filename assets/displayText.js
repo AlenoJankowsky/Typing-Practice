@@ -43,13 +43,13 @@ export function markIncorrectChar(paragraphWithText, charIndex) {
 export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets) {
   if (userInputIsCorrect) {
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
-    statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
+    statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
     todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
 
     return;
   }
 
   paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex + 1);
-  statsText.innerHTML = 'Seconds: ' + seconds + ', ' + displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsText.innerHTML = displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets);
 }
