@@ -9,6 +9,6 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
   return 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount / userKeyTypeCount) / 100) + '%';
 }
 
-export function displayTodayStats(userMistakesCount, userKeyTypeCount, seconds, amountOfSets) {
+export function displayTodayStats(userKeyTypeCount, amountOfSets) {
   return 'Sets: ' + amountOfSets + ' ' + 'Chars typed: ' + userKeyTypeCount + ' ';
 }
