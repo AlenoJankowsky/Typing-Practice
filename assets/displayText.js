@@ -44,18 +44,18 @@ export function markIncorrectChar(paragraphWithText, charIndex) {
   return createResultParagraphText(paragraphWithText, charIndex, span);
 }
 
-export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets) {
+export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText) {
   if (userInputIsCorrect) {
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
     statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
 
     return charIndex += 1;
   }
 
   paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
   
   return charIndex;
 }

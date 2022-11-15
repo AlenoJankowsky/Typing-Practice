@@ -17,7 +17,7 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0; 
-let amountOfSets = 0;
+localStorage.amountOfSets = 0;
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
@@ -70,12 +70,12 @@ let keyDownHandler = function(event) {
 
     const endOfArrayIsReached = charIndex == charArray.length - 1;
     if (endOfArrayIsReached) {
-      amountOfSets += 1;
+      localStorage.amountOfSets = parseInt(localStorage.amountOfSets) + 1;
 
       return;
     }  
 
-    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
+    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
   }
 }
 
@@ -86,5 +86,5 @@ function resetProgress() {
   userMistakesCount = 0;
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
 }
