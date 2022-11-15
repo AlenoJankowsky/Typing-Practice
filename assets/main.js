@@ -19,7 +19,7 @@ let userKeyTypeCount = 0;
 let userMistakesCount = 0; 
 let amountOfSets = 0;
 let generateTextButtonIsClicked = false;
-statsTextForSeconds.innerHTML = 'Seconds: ' + seconds;
+statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
 todayStatsText.innerHTML = displayTodayStats(0, 0, 0, 0);
 
