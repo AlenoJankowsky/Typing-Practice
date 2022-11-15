@@ -9,7 +9,11 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
 }
 
 export function displayTodayStats() {
-  localStorage.amountOfSets = parseInt(localStorage.getItem("amountOfSets"));
+  let minutes = parseInt(localStorage.getItem("totalSeconds")) / 60;
+  let cpmComputation = parseInt(localStorage.getItem("charsTyped")) / minutes;
+  const charactersPerMinute = 'CPM: '+ Math.round(cpmComputation);
+  const sets = 'Sets: ' + parseInt(localStorage.getItem("amountOfSets"));
+  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem("charsTyped"));
 
-  return 'Sets: ' + parseInt(localStorage.getItem("amountOfSets")) + ' ' + 'Chars typed: ' + parseInt(localStorage.getItem("charsTyped")) + ' ';
+  return sets + ', ' + charsTyped + ', ' + charactersPerMinute;
 }

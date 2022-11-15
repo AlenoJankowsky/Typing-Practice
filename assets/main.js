@@ -18,15 +18,13 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0;
-let localStorageVariableArray = ["amountOfSets", "charsTyped"];
-localStorageVariableArray.forEach(element => {
-  handleLocalStorage(element);
-});
+
+handleLocalStorage();
 
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
-todayStatsText.innerHTML = displayTodayStats(0);
+todayStatsText.innerHTML = displayTodayStats();
 
 generateTextButton.addEventListener('click', async function() {
   if (generateTextButtonIsClicked) {
