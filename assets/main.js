@@ -1,7 +1,6 @@
 import {displayStats} from "./displayStats.js";
 import {displayTodayStats} from "./displayStats.js";
 import {generateText} from "./generateText.js";
-import {resetProgress} from "./resetProgress.js";
 import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
 import {incrementSeconds} from "./timeHandler.js";
@@ -25,11 +24,12 @@ statsText.innerHTML = displayStats(0, 0);
 todayStatsText.innerHTML = displayTodayStats(0, 0, 0, 0);
 
 generateTextButton.addEventListener('click', async function() {
+  if (generateTextButtonIsClicked) {
+      resetProgress();
+      document.removeEventListener('keydown', keyDownHandler);
+  }
+
   charArray = await generateText(paragraphWithText);
-  charIndex = 0;
-  seconds = 0;
-  userKeyTypeCount = 0;
-  userMistakesCount = 0;
 
   const incrementSecondsInterval = setInterval(function() {
     seconds = incrementSeconds(seconds, statsTextForSeconds);
@@ -48,36 +48,43 @@ generateTextButton.addEventListener('click', async function() {
   }
 
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  document.addEventListener('keydown', function(event) {
-    const userInputIsCorrect = charArray[charIndex] == event.key;
-    if (generateTextButtonIsClicked) {
-      if (!userInputIsCorrect) {
-        userMistakesCount += 1;
-      }
-
-      if (event.code != 'Space') {
-        userKeyTypeCount += 1;
-      }
-
-      const endOfArrayIsReached = charIndex == charArray.length - 1;
-      if (endOfArrayIsReached) {
-        amountOfSets += 1;
-
-        return;
-      }  
-
-      charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
-    }
-  });
+  document.addEventListener('keydown', keyDownHandler);
 
   generateTextButtonIsClicked = true;
-  resetProgressButton.addEventListener('click', function() {
-    charIndex = 0;
-    seconds = 0;
-    userKeyTypeCount = 0;
-    userMistakesCount = 0;
-    paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-    statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
-  });
 });
+
+resetProgressButton.addEventListener('click', function() {
+  resetProgress();
+});
+
+let keyDownHandler = function(event) {
+  const userInputIsCorrect = charArray[charIndex] == event.key;
+  if (generateTextButtonIsClicked) {
+    if (!userInputIsCorrect) {
+      userMistakesCount += 1;
+    }
+
+    if (event.code != 'Space') {
+      userKeyTypeCount += 1;
+    }
+
+    const endOfArrayIsReached = charIndex == charArray.length - 1;
+    if (endOfArrayIsReached) {
+      amountOfSets += 1;
+
+      return;
+    }  
+
+    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
+  }
+}
+
+function resetProgress() {
+  charIndex = 0;
+  seconds = 0;
+  userKeyTypeCount = 0;
+  userMistakesCount = 0;
+  paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
+  statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+}
