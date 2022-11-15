@@ -4,6 +4,7 @@ import {generateText} from "./generateText.js";
 import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
 import {incrementSeconds} from "./timeHandler.js";
+import {handleLocalStorage} from "./localStorageHandler.js";
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
@@ -17,17 +18,15 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0;
-if (localStorage.amountOfSets) {
-  localStorage.amountOfSets = parseInt(localStorage.getItem("amountOfSets"));
-}
-else {
-  localStorage.amountOfSets = 0;
-}
+let localStorageVariableArray = ["amountOfSets", "charsTyped"];
+localStorageVariableArray.forEach(element => {
+  handleLocalStorage(element);
+});
 
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
-todayStatsText.innerHTML = displayTodayStats(0, 0, 0, 0);
+todayStatsText.innerHTML = displayTodayStats(0);
 
 generateTextButton.addEventListener('click', async function() {
   if (generateTextButtonIsClicked) {
@@ -72,6 +71,7 @@ let keyDownHandler = async function(event) {
 
     if (event.code != 'Space') {
       userKeyTypeCount += 1;
+      localStorage.charsTyped = parseInt(localStorage.charsTyped) + 1;
     }
 
     const endOfArrayIsReached = charIndex == charArray.length - 1;
