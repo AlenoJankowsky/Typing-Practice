@@ -62,8 +62,10 @@ generateTextButton.addEventListener('click', async function() {
       const endOfArrayIsReached = charIndex == charArray.length - 1;
       if (endOfArrayIsReached) {
         amountOfSets += 1;
+
+        return;
       }  
-      console.log(charIndex);
+
       charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount, amountOfSets);
     }
   });
