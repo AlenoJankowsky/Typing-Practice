@@ -16,8 +16,14 @@ let charArray = [];
 let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
-let userMistakesCount = 0; 
-localStorage.amountOfSets = 0;
+let userMistakesCount = 0;
+if (localStorage.amountOfSets) {
+  localStorage.amountOfSets = parseInt(localStorage.getItem("amountOfSets"));
+}
+else {
+  localStorage.amountOfSets = 0;
+}
+
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
@@ -57,7 +63,7 @@ resetProgressButton.addEventListener('click', function() {
   resetProgress();
 });
 
-let keyDownHandler = function(event) {
+let keyDownHandler = async function(event) {
   const userInputIsCorrect = charArray[charIndex] == event.key;
   if (generateTextButtonIsClicked) {
     if (!userInputIsCorrect) {
@@ -70,6 +76,8 @@ let keyDownHandler = function(event) {
 
     const endOfArrayIsReached = charIndex == charArray.length - 1;
     if (endOfArrayIsReached) {
+      charArray = await generateText(paragraphWithText);
+      resetProgress();
       localStorage.amountOfSets = parseInt(localStorage.amountOfSets) + 1;
 
       return;

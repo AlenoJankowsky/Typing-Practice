@@ -11,5 +11,5 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
 export function displayTodayStats(userKeyTypeCount) {
   localStorage.amountOfSets = parseInt(localStorage.getItem("amountOfSets"));
 
-  return 'Sets: ' + localStorage.amountOfSets + ' ' + 'Chars typed: ' + userKeyTypeCount + ' ';
+  return 'Sets: ' + parseInt(localStorage.getItem("amountOfSets")) + ' ' + 'Chars typed: ' + userKeyTypeCount + ' ';
 }
