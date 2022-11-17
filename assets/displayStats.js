@@ -9,13 +9,28 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
 }
 
 export function displayTodayStats() {
-  let minutes = parseInt(localStorage.getItem('totalSeconds')) / 60;
-  let cpmComputation = parseInt(localStorage.getItem('charsTyped')) / minutes;
-  let mistakeRatio = (parseFloat(localStorage.getItem('mistypes')) / parseFloat(localStorage.getItem('charsTyped'))).toFixed(3);
+  let minutes = parseInt(localStorage.getItem('todayTotalSeconds')) / 60;
+  let cpmComputation = parseInt(localStorage.getItem('todayCharsTyped')) / minutes;
+  let mistakeRatio = (parseFloat(localStorage.getItem('todayMistypes')) / parseFloat(localStorage.getItem('todayCharsTyped'))).toFixed(3);
   let charactersPerMinute = Math.round(cpmComputation);
-  const sets = 'Sets: ' + parseInt(localStorage.getItem('amountOfSets'));
-  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('charsTyped'));
-  const time = 'Time: ' + parseInt(localStorage.getItem('totalSeconds')) + 's';
+  const sets = 'Sets: ' + parseInt(localStorage.getItem('todayAmountOfSets'));
+  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('todayCharsTyped'));
+  const time = 'Time: ' + parseInt(localStorage.getItem('todayTotalSeconds')) + 's';
+
+  charactersPerMinute = preventNaNs(charactersPerMinute);
+  mistakeRatio = preventNaNs(mistakeRatio);
+
+  return sets + ', ' + charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + time + ', ' + 'Mistake Ratio: ' + mistakeRatio  + '%';
+}
+
+export function displayTotalStats() {
+  let minutes = parseInt(localStorage.getItem('totalTotalSeconds')) / 60;
+  let cpmComputation = parseInt(localStorage.getItem('totalCharsTyped')) / minutes;
+  let mistakeRatio = (parseFloat(localStorage.getItem('totalMistypes')) / parseFloat(localStorage.getItem('totalCharsTyped'))).toFixed(3);
+  let charactersPerMinute = Math.round(cpmComputation);
+  const sets = 'Sets: ' + parseInt(localStorage.getItem('totalAmountOfSets'));
+  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('totalCharsTyped'));
+  const time = 'Time: ' + parseInt(localStorage.getItem('totalTotalSeconds')) + 's';
 
   charactersPerMinute = preventNaNs(charactersPerMinute);
   mistakeRatio = preventNaNs(mistakeRatio);
