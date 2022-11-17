@@ -77,6 +77,11 @@ body {
   left: 25%;
 }
 
+.typing-container__text-length {
+  position: absolute;
+  top: -1.5%;
+}
+
 .typing-container {
   background-color: grey;
   height: 100%;
