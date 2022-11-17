@@ -5,6 +5,8 @@ import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
 import {incrementSeconds} from "./timeHandler.js";
 import {handleLocalStorage} from "./localStorageHandler.js";
+import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
+import {resetLocalStorageForTotalStats} from "./localStorageHandler.js";
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
@@ -12,6 +14,9 @@ const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
 const todayStatsText = document.getElementById('today-stats-text');
 const totalStatsText = document.getElementById('total-stats-text');
+const deleteTodayStatsButton = document.getElementById('delete-today-stats');
+const deleteTotalStatsButton = document.getElementById('delete-total-stats');
+
 let paragraphWithText = document.getElementById('text');
 
 let charArray = [];
@@ -100,3 +105,6 @@ function resetProgress() {
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
 }
+
+deleteTodayStatsButton.addEventListener('click', resetLocalStorageForTodayStats);
+deleteTotalStatsButton.addEventListener('click', resetLocalStorageForTotalStats);

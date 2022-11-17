@@ -1,5 +1,5 @@
 import {displayTodayStats, displayTotalStats} from "./displayStats.js";
-import {resetLocalStorage} from "./localStorageHandler.js";
+import { resetLocalStorageForTodayStats } from "./localStorageHandler.js";
 
 export function incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText) {
   seconds += 1;
@@ -20,6 +20,6 @@ export function resetAtMidnight() {
   let currentHours = currentDate.getHours();
   
   if (currentHours == 0 && currentMinutes == 0 && currentSeconds == 0) {
-    resetLocalStorage();
+    resetLocalStorageForTodayStats();
   }
 }
