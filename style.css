@@ -102,6 +102,7 @@ body {
 }
 
 .typing-container__text-length {
+  font-family: Arial, Helvetica, sans-serif;
   position: absolute;
   top: -1.5%;
 }
@@ -116,6 +117,7 @@ body {
 
 .typing-container__headline {
   text-align: center;
+  text-decoration: underline;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15pt;
   margin: 0%;
