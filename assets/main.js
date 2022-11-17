@@ -35,7 +35,7 @@ generateTextButton.addEventListener('click', async function() {
   charArray = await generateText(paragraphWithText);
 
   const incrementSecondsInterval = setInterval(function() {
-    seconds = incrementSeconds(seconds, statsTextForSeconds);
+    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText);
     let minutes = seconds / 60;
     const charactersPerMinute = userKeyTypeCount / minutes;
 

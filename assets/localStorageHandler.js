@@ -1,5 +1,4 @@
 export function handleLocalStorage() {
-
   if (localStorage.amountOfSets) {
     localStorage.amountOfSets = parseInt(localStorage.getItem('amountOfSets'));
   }
@@ -30,6 +29,14 @@ export function handleLocalStorage() {
   else {
     localStorage.setItem('totalSeconds', '0');
     localStorage.totalSeconds = 0;
+  }
+
+  if (localStorage.mistypes) {
+    localStorage.mistypes = parseInt(localStorage.getItem('mistypes'));
+  }
+  else {
+    localStorage.setItem('mistypes', '0');
+    localStorage.mistypes = 0;
   }
 
   return;

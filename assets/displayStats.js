@@ -15,6 +15,7 @@ export function displayTodayStats() {
   const sets = 'Sets: ' + parseInt(localStorage.getItem('amountOfSets'));
   const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('charsTyped'));
   const time = 'Time: ' + parseInt(localStorage.getItem('totalSeconds')) + 's';
+  const mistakeRatio = 'Mistake Ratio: ' + parseInt(localStorage.getItem('mistypes'));
 
   return sets + ', ' + charsTyped + ', ' + charactersPerMinute + ', ' + time;
 }
