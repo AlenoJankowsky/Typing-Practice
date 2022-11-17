@@ -58,8 +58,23 @@ body {
 
 .stats-container__today-text {
   position: absolute;
+  text-align: center;
   top: 30%;
-  left: 33%;
+  left: 25%;
+}
+
+.stats-container__total-headline {
+  text-decoration: underline;
+  position: absolute;
+  top: 37%;
+  left: 47.5%;
+}
+
+.stats-container__total-text {
+  position: absolute;
+  text-align: center;
+  top: 44%;
+  left: 48%;
 }
 
 .typing-container {

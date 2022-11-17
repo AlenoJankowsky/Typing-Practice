@@ -11,11 +11,23 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
 export function displayTodayStats() {
   let minutes = parseInt(localStorage.getItem('totalSeconds')) / 60;
   let cpmComputation = parseInt(localStorage.getItem('charsTyped')) / minutes;
-  const charactersPerMinute = 'CPM: '+ Math.round(cpmComputation);
+  let mistakeRatio = (parseFloat(localStorage.getItem('mistypes')) / parseFloat(localStorage.getItem('charsTyped'))).toFixed(3);
+  let charactersPerMinute = Math.round(cpmComputation);
   const sets = 'Sets: ' + parseInt(localStorage.getItem('amountOfSets'));
   const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('charsTyped'));
   const time = 'Time: ' + parseInt(localStorage.getItem('totalSeconds')) + 's';
-  const mistakeRatio = 'Mistake Ratio: ' + parseInt(localStorage.getItem('mistypes'));
 
-  return sets + ', ' + charsTyped + ', ' + charactersPerMinute + ', ' + time;
+  charactersPerMinute = preventNaNs(charactersPerMinute);
+  mistakeRatio = preventNaNs(mistakeRatio);
+
+  return sets + ', ' + charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + time + ', ' + 'Mistake Ratio: ' + mistakeRatio  + '%';
+}
+
+function preventNaNs(valueOfVariable) {
+  const valueOfVariableIsNaN = isNaN(valueOfVariable);
+  if (valueOfVariableIsNaN) {
+    return 0;
+  }
+
+  return valueOfVariable;
 }

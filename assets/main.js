@@ -65,6 +65,7 @@ let keyDownHandler = async function(event) {
   if (generateTextButtonIsClicked) {
     if (!userInputIsCorrect) {
       userMistakesCount += 1;
+      localStorage.mistypes = parseInt(localStorage.mistypes) + 1;
     }
 
     if (event.code != 'Space') {

@@ -8,11 +8,11 @@ export function handleLocalStorage() {
   }
   
   if (localStorage.charsTyped) {
-    localStorage.charsTyped = parseInt(localStorage.getItem('charsTyped'));
+    localStorage.charsTyped = parseFloat(localStorage.getItem('charsTyped'));
   }
   else {
     localStorage.setItem('charsTyped', '0');
-    localStorage.charsTyped = 0;
+    localStorage.charsTyped = 0.0;
   }
   
   if (localStorage.CPM) {
@@ -32,7 +32,7 @@ export function handleLocalStorage() {
   }
 
   if (localStorage.mistypes) {
-    localStorage.mistypes = parseInt(localStorage.getItem('mistypes'));
+    localStorage.mistypes = parseFloat(localStorage.getItem('mistypes'));
   }
   else {
     localStorage.setItem('mistypes', '0');
@@ -40,4 +40,12 @@ export function handleLocalStorage() {
   }
 
   return;
+}
+
+export function resetLocalStorage() {
+  localStorage.amountOfSets = 0;
+  localStorage.charsTyped = 0;
+  localStorage.CPM = 0;
+  localStorage.totalSeconds = 0;
+  localStorage.mistypes = 0;
 }
