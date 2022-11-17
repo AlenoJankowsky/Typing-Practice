@@ -18,8 +18,6 @@ export function resetAtMidnight() {
   let currentSeconds = currentDate.getSeconds();
   let currentMinutes = currentDate.getMinutes();
   let currentHours = currentDate.getHours();
-
-
   
   if (currentHours == 0 && currentMinutes == 0 && currentSeconds == 0) {
     resetLocalStorage();

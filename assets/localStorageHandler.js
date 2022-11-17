@@ -40,7 +40,6 @@ export function handleLocalStorage() {
   }
 
 
-
   if (localStorage.totalAmountOfSets) {
     localStorage.totalAmountOfSets = parseInt(localStorage.getItem('totalAmountOfSets'));
   }
@@ -90,4 +89,6 @@ export function resetLocalStorage() {
   localStorage.todayCPM = 0;
   localStorage.todayTotalSeconds = 0;
   localStorage.todayMistypes = 0;
+
+  return;
 }
