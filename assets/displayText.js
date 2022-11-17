@@ -18,7 +18,7 @@ export function cleanText(text) {
 }
 
 export function charArrayIntoString(textArray) {
-  var resultString = "";
+  let resultString = "";
   for (const char of textArray) {
     resultString += char;
   }
