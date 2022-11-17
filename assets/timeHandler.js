@@ -1,18 +1,19 @@
-import {displayTodayStats} from "./displayStats.js";
+import {displayTodayStats, displayTotalStats} from "./displayStats.js";
 import {resetLocalStorage} from "./localStorageHandler.js";
 
-export function incrementSeconds(seconds, statsTextForSeconds, todayStatsText) {
+export function incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText) {
   seconds += 1;
-  localStorage.totalSeconds = parseInt(localStorage.totalSeconds) + 1;
-  statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
+  localStorage.todayTotalSeconds = parseInt(localStorage.todayTotalSeconds) + 1;
+  localStorage.totalTotalSeconds = parseInt(localStorage.totalTotalSeconds) + 1;
   todayStatsText.innerHTML = displayTodayStats();
-  isMidnight();
+  totalStatsText.innerHTML = displayTotalStats();
+  statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
+  resetAtMidnight();
 
   return seconds;
 }
 
-
-export function isMidnight() {
+export function resetAtMidnight() {
   let currentDate = new Date();
   let currentSeconds = currentDate.getSeconds();
   let currentMinutes = currentDate.getMinutes();

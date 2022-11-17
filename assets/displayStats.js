@@ -9,33 +9,28 @@ export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
 }
 
 export function displayTodayStats() {
-  let minutes = parseInt(localStorage.getItem('todayTotalSeconds')) / 60;
-  let cpmComputation = parseInt(localStorage.getItem('todayCharsTyped')) / minutes;
-  let mistakeRatio = (parseFloat(localStorage.getItem('todayMistypes')) / parseFloat(localStorage.getItem('todayCharsTyped'))).toFixed(3);
-  let charactersPerMinute = Math.round(cpmComputation);
-  const sets = 'Sets: ' + parseInt(localStorage.getItem('todayAmountOfSets'));
-  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('todayCharsTyped'));
-  const time = 'Time: ' + parseInt(localStorage.getItem('todayTotalSeconds')) + 's';
-
-  charactersPerMinute = preventNaNs(charactersPerMinute);
-  mistakeRatio = preventNaNs(mistakeRatio);
-
-  return sets + ', ' + charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + time + ', ' + 'Mistake Ratio: ' + mistakeRatio  + '%';
+  return putTogetherStringsForStats('todayTotalSeconds', 'todayCharsTyped', 'todayMistypes', 'todayAmountOfSets')
 }
 
 export function displayTotalStats() {
-  let minutes = parseInt(localStorage.getItem('totalTotalSeconds')) / 60;
-  let cpmComputation = parseInt(localStorage.getItem('totalCharsTyped')) / minutes;
-  let mistakeRatio = (parseFloat(localStorage.getItem('totalMistypes')) / parseFloat(localStorage.getItem('totalCharsTyped'))).toFixed(3);
+  return putTogetherStringsForStats('totalTotalSeconds', 'totalCharsTyped', 'totalMistypes', 'totalAmountOfSets');
+}
+
+function putTogetherStringsForStats(stringForSeconds, stringForCharsTyped, stringForMistypes, stringForAmountOfSets) {
+  let minutes = parseInt(localStorage.getItem(stringForSeconds)) / 60;
+  let cpmComputation = parseInt(localStorage.getItem(stringForCharsTyped)) / minutes;
+  let mistakeRatio = parseFloat(localStorage.getItem(stringForMistypes)) / parseFloat(localStorage.getItem(stringForCharsTyped));
+  let mistakeRatioWithThreeDecimalPlaces = mistakeRatio.toFixed(3);
   let charactersPerMinute = Math.round(cpmComputation);
-  const sets = 'Sets: ' + parseInt(localStorage.getItem('totalAmountOfSets'));
-  const charsTyped = 'Chars typed: ' + parseInt(localStorage.getItem('totalCharsTyped'));
-  const time = 'Time: ' + parseInt(localStorage.getItem('totalTotalSeconds')) + 's';
+  let charsTyped = parseInt(localStorage.getItem(stringForCharsTyped));
+  const sets = 'Sets: ' + parseInt(localStorage.getItem(stringForAmountOfSets));
+  const time = parseInt(localStorage.getItem(stringForSeconds));
 
+  mistakeRatioWithThreeDecimalPlaces = preventNaNs(mistakeRatioWithThreeDecimalPlaces);
   charactersPerMinute = preventNaNs(charactersPerMinute);
-  mistakeRatio = preventNaNs(mistakeRatio);
+  charsTyped = preventNaNs(charsTyped);
 
-  return sets + ', ' + charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + time + ', ' + 'Mistake Ratio: ' + mistakeRatio  + '%';
+  return sets + ', ' + 'Chars typed: ' +  charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + 'Time: ' +  time + 's' + ', ' + 'Mistake Ratio: ' + mistakeRatioWithThreeDecimalPlaces  + '%';
 }
 
 function preventNaNs(valueOfVariable) {

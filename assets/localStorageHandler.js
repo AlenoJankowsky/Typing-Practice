@@ -40,7 +40,7 @@ export function handleLocalStorage() {
   }
 
 
-  
+
   if (localStorage.totalAmountOfSets) {
     localStorage.totalAmountOfSets = parseInt(localStorage.getItem('totalAmountOfSets'));
   }
@@ -54,7 +54,7 @@ export function handleLocalStorage() {
   }
   else {
     localStorage.setItem('totalCharsTyped', '0');
-    localStorage.totalCharsTyped = 0.0;
+    localStorage.totalCharsTyped = 0;
   }
   
   if (localStorage.totalCPM) {

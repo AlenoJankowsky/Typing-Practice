@@ -1,4 +1,4 @@
-import {displayStats} from "./displayStats.js";
+import {displayStats, displayTotalStats} from "./displayStats.js";
 import {displayTodayStats} from "./displayStats.js";
 import {generateText} from "./generateText.js";
 import {markCurrentChar} from "./displayText.js";
@@ -11,6 +11,7 @@ const resetProgressButton = document.getElementById('reset-button');
 const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
 const todayStatsText = document.getElementById('today-stats-text');
+const totalStatsText = document.getElementById('total-stats-text');
 let paragraphWithText = document.getElementById('text');
 
 let charArray = [];
@@ -25,6 +26,7 @@ let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
 todayStatsText.innerHTML = displayTodayStats();
+totalStatsText.innerHTML = displayTotalStats();
 
 generateTextButton.addEventListener('click', async function() {
   if (generateTextButtonIsClicked) {
@@ -35,7 +37,7 @@ generateTextButton.addEventListener('click', async function() {
   charArray = await generateText(paragraphWithText);
 
   const incrementSecondsInterval = setInterval(function() {
-    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText);
+    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
     let minutes = seconds / 60;
     const charactersPerMinute = userKeyTypeCount / minutes;
 
@@ -65,19 +67,22 @@ let keyDownHandler = async function(event) {
   if (generateTextButtonIsClicked) {
     if (!userInputIsCorrect) {
       userMistakesCount += 1;
-      localStorage.mistypes = parseInt(localStorage.mistypes) + 1;
+      localStorage.todayMistypes = parseInt(localStorage.todayMistypes) + 1;
+      localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
     }
 
     if (event.code != 'Space') {
       userKeyTypeCount += 1;
-      localStorage.charsTyped = parseInt(localStorage.charsTyped) + 1;
+      localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
+      localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
     }
 
     const endOfArrayIsReached = charIndex == charArray.length - 1;
     if (endOfArrayIsReached) {
       charArray = await generateText(paragraphWithText);
       resetProgress();
-      localStorage.amountOfSets = parseInt(localStorage.amountOfSets) + 1;
+      localStorage.todayAmountOfSets = parseInt(localStorage.todayAmountOfSets) + 1;
+      localStorage.totalAmountOfSets = parseInt(localStorage.totalAmountOfSets) + 1;
 
       return;
     }  
