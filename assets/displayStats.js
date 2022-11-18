@@ -17,6 +17,15 @@ export function displayTotalStats() {
   return putTogetherStringsForStats('totalTotalSeconds', 'totalCharsTyped', 'totalMistypes', 'totalAmountOfSets');
 }
 
+export function showExtendedStats(extendedStatsContainer) {
+  if (extendedStatsContainer.style.display == 'none') {
+    extendedStatsContainer.style.display = 'block';
+  }
+  else {
+    extendedStatsContainer.style.display = 'none';
+  }
+}
+
 function putTogetherStringsForStats(stringForSeconds, stringForCharsTyped, stringForMistypes, stringForAmountOfSets) {
   let minutes = parseInt(localStorage.getItem(stringForSeconds)) / 60;
   let cpmComputation = parseInt(localStorage.getItem(stringForCharsTyped)) / minutes;

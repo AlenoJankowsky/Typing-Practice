@@ -7,10 +7,10 @@ import {incrementSeconds} from "./timeHandler.js";
 import {handleLocalStorage} from "./localStorageHandler.js";
 import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
 import {resetLocalStorageForTotalStats} from "./localStorageHandler.js";
+import {showExtendedStats} from "./displayStats.js";
 
-const keyboardKeysArray = [['A', 0], ['B', 0], ['C', 0], ['D', 0], ['E', 0], ['F', 0], ['G', 0], ['H', 0], ['I', 0], ['J', 0], ['K', 0], ['L', 0], ['M', 0], ['N', 0], ['O', 0], ['P', 0], ['Q', 0],
-                           ['R', 0], ['S', 0], ['T', 0], ['U', 0], ['V', 0], ['W', 0], ['X', 0], ['Y', 0], ['Z', 0]];
-console.log(keyboardKeysArray);
+const keyboardKeysArray = [['A', 0, 0], ['B', 0, 0], ['C', 0, 0], ['D', 0, 0], ['E', 0, 0], ['F', 0, 0], ['G', 0, 0], ['H', 0, 0], ['I', 0, 0], ['J', 0, 0], ['K', 0, 0], ['L', 0, 0], ['M', 0, 0],
+                           ['N', 0, 0], ['O', 0, 0], ['P', 0, 0], ['Q', 0, 0], ['R', 0, 0], ['S', 0, 0], ['T', 0, 0], ['U', 0, 0], ['V', 0, 0], ['W', 0, 0], ['X', 0, 0], ['Y', 0, 0], ['Z', 0, 0]];
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
@@ -18,6 +18,9 @@ const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
 const todayStatsText = document.getElementById('today-stats-text');
 const totalStatsText = document.getElementById('total-stats-text');
+const extendedStatsText = document.getElementById('extended-stats-text');
+const extendedStatsContainer = document .getElementById('extended-stats-canvas');
+const showExtendedStatsButton = document.getElementById('show-extended-stats')
 const deleteTodayStatsButton = document.getElementById('delete-today-stats');
 const deleteTotalStatsButton = document.getElementById('delete-total-stats');
 
@@ -27,7 +30,13 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0;
+let extendedStatsString = "";
 
+keyboardKeysArray.forEach(function(element) {
+  extendedStatsString += element[0] + ' ' + element[1] + '%' + '<br>';
+});
+
+extendedStatsText.innerHTML = extendedStatsString;
 handleLocalStorage();
 
 let generateTextButtonIsClicked = false;
@@ -36,20 +45,52 @@ statsText.innerHTML = displayStats(0, 0);
 todayStatsText.innerHTML = displayTodayStats();
 totalStatsText.innerHTML = displayTotalStats();
 
+let firstTryCounter = 0;
+
 let keyDownHandler = async function(event) {
   const userInput = event.code;
   const userInputIsCorrect = charArray[charIndex] == event.key;
+  const isFirstTry = firstTryCounter == 0;
 
   if (generateTextButtonIsClicked) {
+    keyboardKeysArray.forEach(function(element) {
+      const isTheCorrectlyTypedKey = element[0] == (event.key).toUpperCase();
+      if (isFirstTry && userInputIsCorrect) {
+            
+        if (isTheCorrectlyTypedKey) {
+          element[1]++; 
+        } 
+      }
+
+      if (isTheCorrectlyTypedKey) {
+        element[2]++;
+      }
+    });
+
+    extendedStatsString = "";
+      keyboardKeysArray.forEach(function(element) {
+        let computedValue = Math.round(element[1] / element[2] * 100);
+        if (element[1] == 0) {
+          computedValue = 0;
+        }
+        
+        extendedStatsString += element[0] + ' ' + computedValue + '%' + '<br>';
+     });
+    
+    extendedStatsText.innerHTML = extendedStatsString;
 
     if (!userInputIsCorrect) {
-      userMistakesCount += 1;
+      firstTryCounter ++;
+      userMistakesCount ++;
       localStorage.todayMistypes = parseInt(localStorage.todayMistypes) + 1;
       localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
     }
+    else {
+      firstTryCounter = 0;
+    }
 
     if (userInput != 'Space') {
-      userKeyTypeCount += 1;
+      userKeyTypeCount ++;
       localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
       localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
     }
@@ -76,10 +117,6 @@ function resetProgress() {
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
-}
-
-function initializeFrequencyArray() {
- 
 }
 
 generateTextButton.addEventListener('click', async function() {
@@ -116,6 +153,10 @@ generateTextButton.addEventListener('click', async function() {
 
 resetProgressButton.addEventListener('click', function() {
   resetProgress();
+});
+
+showExtendedStatsButton.addEventListener('click', function() {
+  showExtendedStats(extendedStatsContainer)
 });
 
 deleteTodayStatsButton.addEventListener('click', resetLocalStorageForTodayStats);
