@@ -100,7 +100,7 @@ generateTextButton.addEventListener('click', async function() {
     let minutes = seconds / 60;
     const charactersPerMinute = userKeyTypeCount / minutes;
     const isFreshRun = userKeyTypeCount == 0;
-    
+
     if (isFreshRun) {
       statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
     }
@@ -108,6 +108,7 @@ generateTextButton.addEventListener('click', async function() {
       statsText.innerHTML = 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '%';
     }
   }, 1000);
+  
   if (generateTextButtonIsClicked) {
     clearInterval(incrementSecondsInterval);
   }
