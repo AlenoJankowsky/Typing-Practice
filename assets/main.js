@@ -39,10 +39,6 @@ let keyDownHandler = async function(event) {
   const userInput = event.code;
   const userInputIsCorrect = charArray[charIndex] == event.key;
 
-  keyboardKeysArray.forEach(function(entryElement) {
-    console.log(keyboardKeysArrayEntriesIterator.next().value);
-  });
-
   if (generateTextButtonIsClicked) {
 
     if (!userInputIsCorrect) {
@@ -103,8 +99,9 @@ generateTextButton.addEventListener('click', async function() {
     seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
     let minutes = seconds / 60;
     const charactersPerMinute = userKeyTypeCount / minutes;
-
-    if (userKeyTypeCount == 0) {
+    const isFreshRun = userKeyTypeCount == 0;
+    
+    if (isFreshRun) {
       statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
     }
     else {
