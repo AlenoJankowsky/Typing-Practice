@@ -14,3 +14,4 @@ export function resetProgress(seconds, charIndex, userKeyTypeCount, userMistakes
   statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
 }
+
