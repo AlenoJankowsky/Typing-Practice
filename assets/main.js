@@ -64,11 +64,11 @@ let keyDownHandler = function(event) {
       userMistakesCount += 1;
     }
 
-    if (event.code != 'Space') {
+    if (event.code !== 'Space') {
       userKeyTypeCount += 1;
     }
 
-    const endOfArrayIsReached = charIndex == charArray.length - 1;
+    const endOfArrayIsReached = charIndex === charArray.length - 1;
     if (endOfArrayIsReached) {
       amountOfSets += 1;
 
