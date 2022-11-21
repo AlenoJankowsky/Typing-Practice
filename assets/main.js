@@ -40,7 +40,7 @@ generateTextButton.addEventListener('click', async function() {
       statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
     }
     else {
-      statsText.innerHTML = 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '%';
+      statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
     }
   }, 1000);
   if (generateTextButtonIsClicked) {
