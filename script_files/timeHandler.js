@@ -1,5 +1,5 @@
 import {displayTodayStats, displayTotalStats} from "./displayStats.js";
-import { resetLocalStorageForTodayStats } from "./localStorageHandler.js";
+import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
 
 export function incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText) {
   seconds += 1;

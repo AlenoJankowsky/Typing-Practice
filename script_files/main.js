@@ -50,7 +50,7 @@ generateTextButton.addEventListener('click', async function() {
       statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
     }
     else {
-      statsText.innerHTML = 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '%';
+      statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
     }
   }, 1000);
   if (generateTextButtonIsClicked) {
@@ -76,13 +76,13 @@ let keyDownHandler = async function(event) {
       localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
     }
 
-    if (event.code != 'Space') {
+    if (event.code !== 'Space') {
       userKeyTypeCount += 1;
       localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
       localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
     }
 
-    const endOfArrayIsReached = charIndex == charArray.length - 1;
+    const endOfArrayIsReached = charIndex === charArray.length - 1;
     if (endOfArrayIsReached) {
       charArray = await generateText(paragraphWithText);
       resetProgress();
