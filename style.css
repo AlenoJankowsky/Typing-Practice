@@ -1,0 +1,101 @@
+body {
+  background-color: aqua;
+}
+
+.welcome-container__headline {
+  position: relative;
+  left: 25%;
+  margin: 0%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.welcome-container__paragraph{
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15pt;
+  margin: 0%;
+}
+
+.stats-container {
+  background-color: grey;
+  height: 50%;
+  width: 850px;
+  position: absolute;
+  text-align: center;
+  border: 2px solid black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stats-container__headline {
+  text-decoration: underline;
+  font-size: 15pt;
+}
+
+.stats-container__last-set-headline {
+  text-decoration: underline;
+}
+
+.stats-container__time-text {
+  text-align: center;
+  position: absolute;
+  top: 19%;
+  left: 34%;
+}
+
+.stats-container__text {
+  text-align: center;
+  position: absolute;
+  top: 19%;
+  left: 47%;
+}
+
+.stats-container__today-headline {
+  text-decoration: underline;
+  position: absolute;
+  top: 24%;
+  left: 47%;
+}
+
+.stats-container__today-text {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
+.typing-container {
+  background-color: grey;
+  height: 100%;
+  width: 850px;
+  position: absolute;
+  top: 60%;
+}
+
+.typing-container__headline {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15pt;
+  margin: 0%;
+}
+
+.typing-container__typing-area {
+  height: 100%;
+}
+
+.typing-area__generate-text-button {
+  border: 1px solid black;
+}
+
+.typing-container__reset-button {
+  position: absolute;
+  top: 23.2px;
+  left: 285px;
+  border: 1px solid black;
+}
+
+.typing-area__text {
+  font-size: 15pt;
+  height: 100%;
+  margin: 0%;
+  background-color: lightgray;
+  border: 2px solid black;
+}

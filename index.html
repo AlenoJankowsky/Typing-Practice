@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Typing-Practice</title>
+  </head>
+  <body>
+    <div class="welcome-container">
+      <h1 class="welcome-container__headline">Welcome</h1>
+      <p class="welcome-container__paragraph">TODO: General description of how the website works</p>
+    </div>
+    <div class="stats-container">
+      <p class="stats-container__headline">Stats</p>
+      <p class="stats-container__last-set-headline">Last Set</p>
+      <p class="stats-container__time-text" id="last-set-stats-time-text"></p><p class="stats-container__text" id="last-set-stats-text"></p>
+      <p class="stats-container__today-headline">Today</p>
+      <p class="stats-container__today-text" id="today-stats-text"></p>
+    </div>
+    <div class="typing-container">
+      <p class="typing-container__headline">Typing</p>
+      <button class="typing-container__reset-button" id="reset-button">Reset</button>
+      <div class="typing-container__typing-area">
+        <form>
+          <input type="number" id="amount-of-words" class="typing-container__input-for-amount-of-words-in-text">
+          <input class="typing-area__generate-text-button" type="button" id="generate-text-button" value="Generate New Text">
+        </form>
+        <p id="text" class="typing-area__text"></p>
+      </div>
+    </div>
+    </div>
+  </body>
+  <script type="module" src="assets/main.js"></script>
+</html>
