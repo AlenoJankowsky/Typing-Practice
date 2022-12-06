@@ -39,6 +39,10 @@ keyboardKeysArray.forEach(function(element) {
 extendedStatsText.innerHTML = extendedStatsString;
 handleLocalStorage();
 
+let localStorage = window.localStorage
+
+localStorage = handleLocalStorage(localStorage);
+
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
@@ -46,6 +50,40 @@ todayStatsText.innerHTML = displayTodayStats();
 totalStatsText.innerHTML = displayTotalStats();
 
 let firstTryCounter = 0;
+
+generateTextButton.addEventListener('click', async function() {
+  if (generateTextButtonIsClicked) {
+      resetProgress();
+      document.removeEventListener('keydown', keyDownHandler);
+  }
+
+  charArray = await generateText(paragraphWithText);
+
+  const incrementSecondsInterval = setInterval(function() {
+    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
+    let minutes = seconds / 60;
+    const charactersPerMinute = userKeyTypeCount / minutes;
+
+    if (userKeyTypeCount == 0) {
+      statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
+    }
+    else {
+      statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
+    }
+  }, 1000);
+  if (generateTextButtonIsClicked) {
+    clearInterval(incrementSecondsInterval);
+  }
+
+  paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
+  document.addEventListener('keydown', keyDownHandler);
+
+  generateTextButtonIsClicked = true;
+});
+
+resetProgressButton.addEventListener('click', function() {
+  resetProgress();
+});
 
 let keyDownHandler = async function(event) {
   const userInput = event.code;
@@ -91,11 +129,12 @@ let keyDownHandler = async function(event) {
 
     if (userInput != 'Space') {
       userKeyTypeCount ++;
+
       localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
       localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
     }
 
-    const endOfArrayIsReached = charIndex == charArray.length - 1;
+    const endOfArrayIsReached = charIndex === charArray.length - 1;
     if (endOfArrayIsReached) {
       charArray = await generateText(paragraphWithText);
       resetProgress();
