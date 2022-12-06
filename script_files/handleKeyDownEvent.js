@@ -1,4 +1,4 @@
-import {displayParagraphs} from "./displayText.js";
+import {displayParagraphs} from "./displayText.js.js";
 import {preventSpaceBar} from "./preventDefault.js";
 
 export function handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount) {
