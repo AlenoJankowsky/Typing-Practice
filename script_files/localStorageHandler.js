@@ -1,4 +1,4 @@
-export function handleLocalStorage() {
+export function handleLocalStorage(localStorage) {
   if (localStorage.todayAmountOfSets) {
     localStorage.todayAmountOfSets = parseInt(localStorage.getItem('todayAmountOfSets'));
   }
@@ -80,7 +80,7 @@ export function handleLocalStorage() {
     localStorage.totalMistypes = 0;
   }
 
-  return;
+  return localStorage;
 }
 
 export function resetLocalStorageForTodayStats() {

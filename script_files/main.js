@@ -24,8 +24,9 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0;
+let localStorage = window.localStorage
 
-handleLocalStorage();
+localStorage = handleLocalStorage(localStorage);
 
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
