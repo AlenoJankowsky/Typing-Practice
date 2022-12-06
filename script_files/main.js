@@ -30,6 +30,7 @@ let charIndex = 0;
 let seconds = 0;
 let userKeyTypeCount = 0;
 let userMistakesCount = 0;
+let localStorage = window.localStorage
 let extendedStatsString = "";
 
 keyboardKeysArray.forEach(function(element) {
@@ -37,9 +38,6 @@ keyboardKeysArray.forEach(function(element) {
 });
 
 extendedStatsText.innerHTML = extendedStatsString;
-handleLocalStorage();
-
-let localStorage = window.localStorage
 
 localStorage = handleLocalStorage(localStorage);
 
@@ -50,37 +48,6 @@ todayStatsText.innerHTML = displayTodayStats();
 totalStatsText.innerHTML = displayTotalStats();
 
 let firstTryCounter = 0;
-
-generateTextButton.addEventListener('click', async function() {
-  if (generateTextButtonIsClicked) {
-      resetProgress();
-      document.removeEventListener('keydown', keyDownHandler);
-  }
-
-  charArray = await generateText(paragraphWithText);
-
-  const incrementSecondsInterval = setInterval(function() {
-    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
-    let minutes = seconds / 60;
-    const charactersPerMinute = userKeyTypeCount / minutes;
-
-    if (userKeyTypeCount == 0) {
-      statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
-    }
-    else {
-      statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
-    }
-  }, 1000);
-  if (generateTextButtonIsClicked) {
-    clearInterval(incrementSecondsInterval);
-  }
-
-  paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  document.addEventListener('keydown', keyDownHandler);
-
-  generateTextButtonIsClicked = true;
-});
-
 resetProgressButton.addEventListener('click', function() {
   resetProgress();
 });
