@@ -1,4 +1,4 @@
-export function handleLocalStorage(localStorage) {
+export function parseLocalStorage(localStorage) {
   if (localStorage.todayAmountOfSets) {
     localStorage.todayAmountOfSets = parseInt(localStorage.getItem('todayAmountOfSets'));
   }

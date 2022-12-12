@@ -4,7 +4,7 @@ import {generateText} from "./generateText.js";
 import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
 import {incrementSeconds} from "./timeHandler.js";
-import {handleLocalStorage} from "./localStorageHandler.js";
+import {parseLocalStorage} from "./localStorageHandler.js";
 import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
 import {resetLocalStorageForTotalStats} from "./localStorageHandler.js";
 
@@ -26,7 +26,7 @@ let userKeyTypeCount = 0;
 let userMistakesCount = 0;
 let localStorage = window.localStorage
 
-localStorage = handleLocalStorage(localStorage);
+localStorage = parseLocalStorage(localStorage);
 
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
