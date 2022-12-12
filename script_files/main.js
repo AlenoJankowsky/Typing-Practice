@@ -12,8 +12,8 @@ const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
 const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
-const todayStatsText = document.getElementById('today-stats-text');
-const totalStatsText = document.getElementById('total-stats-text');
+const todayStatsTextContainer = document.getElementById('today-stats-text');
+const totalStatsTextContainer = document.getElementById('total-stats-text');
 const deleteTodayStatsButton = document.getElementById('delete-today-stats');
 const deleteTotalStatsButton = document.getElementById('delete-total-stats');
 
@@ -31,8 +31,8 @@ localStorage = parseLocalStorage(localStorage);
 let generateTextButtonIsClicked = false;
 statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
 statsText.innerHTML = displayStats(0, 0);
-todayStatsText.innerHTML = displayTodayStats();
-totalStatsText.innerHTML = displayTotalStats();
+todayStatsTextContainer.innerHTML = displayTodayStats();
+totalStatsTextContainer.innerHTML = displayTotalStats();
 
 generateTextButton.addEventListener('click', async function() {
   if (generateTextButtonIsClicked) {
@@ -43,7 +43,7 @@ generateTextButton.addEventListener('click', async function() {
   charArray = await generateText(paragraphWithText);
 
   const incrementSecondsInterval = setInterval(function() {
-    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
+    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer);
     let minutes = seconds / 60;
     const charactersPerMinute = userKeyTypeCount / minutes;
 
@@ -93,7 +93,7 @@ let keyDownHandler = async function(event) {
       return;
     }  
 
-    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsText, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
+    charIndex = handleKeyDownEvent(event, paragraphWithText, statsTextContainer, todayStatsTextContainer, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
   }
 }
 
@@ -103,8 +103,8 @@ function resetProgress() {
   userKeyTypeCount = 0;
   userMistakesCount = 0;
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount);
+  statsTextContainer.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  todayStatsTextContainer.innerHTML = displayTodayStats(userKeyTypeCount);
 }
 
 deleteTodayStatsButton.addEventListener('click', resetLocalStorageForTodayStats);

@@ -1,12 +1,12 @@
 import {displayTodayStats, displayTotalStats} from "./displayStats.js";
 import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
 
-export function incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText) {
+export function incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer) {
   seconds += 1;
   localStorage.todayTotalSeconds = parseInt(localStorage.todayTotalSeconds) + 1;
   localStorage.totalTotalSeconds = parseInt(localStorage.totalTotalSeconds) + 1;
-  todayStatsText.innerHTML = displayTodayStats();
-  totalStatsText.innerHTML = displayTotalStats();
+  todayStatsTextContainer.innerHTML = displayTodayStats();
+  totalStatsTextContainer.innerHTML = displayTotalStats();
   statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
   resetAtMidnight();
 
