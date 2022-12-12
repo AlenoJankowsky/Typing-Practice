@@ -1,12 +1,9 @@
-import {displayStats, displayTotalStats} from "./displayStats.js";
-import {displayTodayStats} from "./displayStats.js";
+import {displayStats, displayTotalStats, displayTodayStats} from "./displayStats.js";
 import {generateText} from "./generateText.js";
 import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
 import {incrementSeconds} from "./timeHandler.js";
-import {parseLocalStorage} from "./localStorageHandler.js";
-import {resetLocalStorageForTodayStats} from "./localStorageHandler.js";
-import {resetLocalStorageForTotalStats} from "./localStorageHandler.js";
+import {parseLocalStorage, resetLocalStorageForTodayStats, resetLocalStorageForTotalStats} from "./localStorageHandler.js";
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');

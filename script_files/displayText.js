@@ -1,5 +1,4 @@
-import {displayStats} from "./displayStats.js";
-import {displayTodayStats} from "./displayStats.js";
+import {displayStats, displayTodayStats} from "./displayStats.js";
 
 function createResultParagraphText(paragraphWithText, charIndex, span) {
     const resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
