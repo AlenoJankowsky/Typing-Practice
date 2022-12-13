@@ -61,7 +61,7 @@ let keyDownHandler = async function(event) {
     keyboardKeysArray.forEach(function(element) {
       const isTheCorrectlyTypedKey = element[0] == (event.key).toUpperCase();
       if (isFirstTry && userInputIsCorrect) {
-            
+
         if (isTheCorrectlyTypedKey) {
           element[1]++; 
         } 
@@ -73,14 +73,14 @@ let keyDownHandler = async function(event) {
     });
 
     extendedStatsString = "";
-      keyboardKeysArray.forEach(function(element) {
-        let computedValue = Math.round(element[1] / element[2] * 100);
-        if (element[1] == 0) {
-          computedValue = 0;
-        }
-        
-        extendedStatsString += element[0] + ' ' + computedValue + '%' + '<br>';
-     });
+    keyboardKeysArray.forEach(function(element) {
+      let computedValue = Math.round(element[1] / element[2] * 100);
+      if (element[1] == 0) {
+        computedValue = 0;
+      }
+      
+      extendedStatsString += element[0] + ' ' + computedValue + '%' + '<br>';
+    });
     
     extendedStatsText.innerHTML = extendedStatsString;
 
