@@ -1,5 +1,4 @@
-import {displayStats} from "./displayStats.js";
-import {displayTodayStats} from "./displayStats.js";
+import {displayStats, displayTodayStats} from "./displayStats.js";
 
 function createResultParagraphText(paragraphWithText, charIndex, span) {
     const resultParagraphText = paragraphWithText.innerText.substring(0, charIndex) + span.outerHTML + paragraphWithText.innerText.substring(charIndex + 1);
@@ -44,18 +43,18 @@ export function markIncorrectChar(paragraphWithText, charIndex) {
   return createResultParagraphText(paragraphWithText, charIndex, span);
 }
 
-export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsText, seconds, userMistakesCount, userKeyTypeCount, todayStatsText, amountOfSets) {
+export function displayParagraphs(userInputIsCorrect, paragraphWithText, charIndex, statsTextContainer, seconds, userMistakesCount, userKeyTypeCount, todayStatsTextContainer) {
   if (userInputIsCorrect) {
     paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex + 1);
-    statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-    todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+    statsTextContainer.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+    todayStatsTextContainer.innerHTML = displayTodayStats(userKeyTypeCount);
 
     return charIndex += 1;
   }
 
   paragraphWithText.innerHTML = markIncorrectChar(paragraphWithText, charIndex);
-  statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
-  todayStatsText.innerHTML = displayTodayStats(userKeyTypeCount, amountOfSets);
+  statsTextContainer.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  todayStatsTextContainer.innerHTML = displayTodayStats(userKeyTypeCount);
   
   return charIndex;
 }

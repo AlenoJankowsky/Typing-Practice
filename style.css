@@ -58,8 +58,53 @@ body {
 
 .stats-container__today-text {
   position: absolute;
+  text-align: center;
   top: 30%;
-  left: 40%;
+  left: 25%;
+}
+
+.stats-container__total-headline {
+  text-decoration: underline;
+  position: absolute;
+  top: 37%;
+  left: 47.5%;
+}
+
+.stats-container__total-text {
+  position: absolute;
+  text-align: center;
+  top: 44%;
+  left: 25%;
+}
+
+.stats-container__more-stats-button {
+  background-color: lightgrey;
+  border: 1px solid black;
+  position: absolute;
+  top: 60%;
+  left: 45%;
+}
+
+.stats-container__delete-today-stats {
+  background-color: lightgrey;
+  border: 1px solid black;
+  position: absolute;
+  top: 66%;
+  left: 30%;
+}
+
+.stats-container__delete-total-stats {
+  background-color: lightgrey;
+  border: 1px solid black;
+  position: absolute;
+  top: 66%;
+  left: 50%;
+}
+
+.typing-container__text-length {
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  top: -1.5%;
 }
 
 .typing-container {
@@ -72,6 +117,7 @@ body {
 
 .typing-container__headline {
   text-align: center;
+  text-decoration: underline;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15pt;
   margin: 0%;

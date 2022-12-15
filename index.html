@@ -17,12 +17,18 @@
       <p class="stats-container__time-text" id="last-set-stats-time-text"></p><p class="stats-container__text" id="last-set-stats-text"></p>
       <p class="stats-container__today-headline">Today</p>
       <p class="stats-container__today-text" id="today-stats-text"></p>
+      <p class="stats-container__total-headline">Total</p>
+      <p class="stats-container__total-text" id="total-stats-text"></p>
+      <button class="stats-container__more-stats-button">More Stats</button>
+      <button id="delete-today-stats" class="stats-container__delete-today-stats">DELETE TODAY STATS</button>
+      <button id="delete-total-stats" class="stats-container__delete-total-stats">DELETE TOTAL STATS</button>
     </div>
     <div class="typing-container">
       <p class="typing-container__headline">Typing</p>
       <button class="typing-container__reset-button" id="reset-button">Reset</button>
       <div class="typing-container__typing-area">
-        <form>
+        <form> 
+          <p class="typing-container__text-length">Text-length:</p>
           <input type="number" id="amount-of-words" class="typing-container__input-for-amount-of-words-in-text">
           <input class="typing-area__generate-text-button" type="button" id="generate-text-button" value="Generate New Text">
         </form>
@@ -31,5 +37,5 @@
     </div>
     </div>
   </body>
-  <script type="module" src="assets/main.js"></script>
+  <script type="module" src="script_files/main.js"></script>
 </html>
