@@ -18,7 +18,7 @@ export function displayTotalStats() {
 }
 
 export function showExtendedStats(extendedStatsContainer) {
-  if (extendedStatsContainer.style.display == 'none') {
+  if (extendedStatsContainer.style.display == 'none' || extendedStatsContainer.style.display == '') {
     extendedStatsContainer.style.display = 'block';
   }
   else {

@@ -30,7 +30,7 @@ let localStorage = window.localStorage
 let extendedStatsString = "";
 
 keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
-  extendedStatsString += keyBoardKeyEntryInArray[0] + ' ' + keyBoardKeyEntryInArray[1] + '%' + '<br>';
+  extendedStatsString += `${keyBoardKeyEntryInArray[0]} ${keyBoardKeyEntryInArray[1]}% <br>`;
 });
 
 extendedStatsText.innerHTML = extendedStatsString;
