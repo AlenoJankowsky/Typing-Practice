@@ -38,7 +38,7 @@ extendedStatsText.innerHTML = extendedStatsString;
 localStorage = parseLocalStorage(localStorage);
 
 let generateTextButtonIsClicked = false;
-statsTextForSeconds.innerHTML = 'Seconds: ' + seconds + 's';
+statsTextForSeconds.innerHTML = `Seconds: ${seconds}s`;
 statsText.innerHTML = displayStats(0, 0);
 todayStatsTextContainer.innerHTML = displayTodayStats();
 totalStatsTextContainer.innerHTML = displayTotalStats();
@@ -59,7 +59,7 @@ generateTextButton.addEventListener('click', async function() {
     const charactersPerMinute = userKeyTypeCount / minutes;
 
     if (userKeyTypeCount == 0) {
-      statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
+      statsText.innerHTML = `CPM: 0, Wrong Chars: 0%`;
     }
     else {
       statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
@@ -85,28 +85,28 @@ let keyDownHandler = async function(event) {
   const isFirstTry = firstTryCounter == 0;
 
   if (generateTextButtonIsClicked) {
-    keyboardKeysArray.forEach(function(element) {
-      const isTheCorrectlyTypedKey = element[0] == (event.key).toUpperCase();
+    keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
+      const isTheCorrectlyTypedKey = keyBoardKeyEntryInArray[0] == (event.key).toUpperCase();
       if (isFirstTry && userInputIsCorrect) {
 
         if (isTheCorrectlyTypedKey) {
-          element[1]++; 
+          keyBoardKeyEntryInArray[1]++; 
         } 
       }
 
       if (isTheCorrectlyTypedKey) {
-        element[2]++;
+        keyBoardKeyEntryInArray[2]++;
       }
     });
 
     extendedStatsString = "";
-    keyboardKeysArray.forEach(function(element) {
-      let computedValue = Math.round(element[1] / element[2] * 100);
-      if (element[1] == 0) {
+    keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
+      let computedValue = Math.round(keyBoardKeyEntryInArray[1] / keyBoardKeyEntryInArray[2] * 100);
+      if (keyBoardKeyEntryInArray[1] == 0) {
         computedValue = 0;
       }
       
-      extendedStatsString += element[0] + ' ' + computedValue + '%' + '<br>';
+      extendedStatsString += `${keyBoardKeyEntryInArray[0]} ${computedValue}%<br>`;
     });
     
     extendedStatsText.innerHTML = extendedStatsString;
