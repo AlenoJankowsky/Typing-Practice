@@ -1,6 +1,5 @@
 import {markCurrentChar} from "./displayText.js";
-import {displayStats} from "./displayStats.js";
-import {displayTodayStats} from "./displayStats.js";
+import {displayStats, displayTodayStats} from "./displayStats.js";
 
 const statsText = document.getElementById('last-set-stats-text');
 const todayStatsText = document.getElementById('today-stats-text');
