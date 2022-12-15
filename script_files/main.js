@@ -10,7 +10,7 @@ const keyboardKeysArray = [['A', 0, 0], ['B', 0, 0], ['C', 0, 0], ['D', 0, 0], [
 
 const generateTextButton = document.getElementById('generate-text-button');
 const resetProgressButton = document.getElementById('reset-button');
-const statsTextContainer = document.getElementById('last-set-stats-text');
+const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
 const extendedStatsText = document.getElementById('extended-stats-text');
 const extendedStatsContainer = document .getElementById('extended-stats-canvas');
@@ -138,7 +138,7 @@ let keyDownHandler = async function(event) {
       return;
     }  
 
-    charIndex = handleKeyDownEvent(event, paragraphWithText, statsTextContainer, todayStatsTextContainer, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
+    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsTextContainer, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
   }
 }
 
@@ -148,41 +148,9 @@ function resetProgress() {
   userKeyTypeCount = 0;
   userMistakesCount = 0;
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  statsTextContainer.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
+  statsText.innerHTML = displayStats(userMistakesCount, userKeyTypeCount, seconds);
   todayStatsTextContainer.innerHTML = displayTodayStats(userKeyTypeCount);
 }
-
-generateTextButton.addEventListener('click', async function() {
-  if (generateTextButtonIsClicked) {
-      resetProgress();
-      document.removeEventListener('keydown', keyDownHandler);
-  }
-
-  charArray = await generateText(paragraphWithText);
-
-  const incrementSecondsInterval = setInterval(function() {
-    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsText, totalStatsText);
-    let minutes = seconds / 60;
-    const charactersPerMinute = userKeyTypeCount / minutes;
-    const isFreshRun = userKeyTypeCount == 0;
-
-    if (isFreshRun) {
-      statsText.innerHTML = 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
-    }
-    else {
-      statsText.innerHTML = 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100) + '%';
-    }
-  }, 1000);
-
-  if (generateTextButtonIsClicked) {
-    clearInterval(incrementSecondsInterval);
-  }
-
-  paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
-  document.addEventListener('keydown', keyDownHandler);
-
-  generateTextButtonIsClicked = true;
-});
 
 resetProgressButton.addEventListener('click', function() {
   resetProgress();
