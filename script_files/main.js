@@ -29,8 +29,8 @@ let userMistakesCount = 0;
 let localStorage = window.localStorage
 let extendedStatsString = "";
 
-keyboardKeysArray.forEach(function(element) {
-  extendedStatsString += element[0] + ' ' + element[1] + '%' + '<br>';
+keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
+  extendedStatsString += keyBoardKeyEntryInArray[0] + ' ' + keyBoardKeyEntryInArray[1] + '%' + '<br>';
 });
 
 extendedStatsText.innerHTML = extendedStatsString;
