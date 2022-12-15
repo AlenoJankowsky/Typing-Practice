@@ -16,13 +16,18 @@ export function cleanText(text) {
   return resultText;
 }
 
-export function charArrayIntoString(textArray) {
-  let resultString = "";
-  for (const char of textArray) {
-    resultString += char;
-  }
+function cleanTextWithoutCommaWhitespace(text) {
+  const resultText = text
+    .replaceAll(',', "");
 
-  return resultString;
+  return resultText
+}
+
+export function charArrayIntoString(textArray) {
+  let resultString = textArray.join();
+
+
+  return cleanTextWithoutCommaWhitespace(resultString);
 }
 
 export function markCurrentChar(paragraphWithText, charIndex) {
