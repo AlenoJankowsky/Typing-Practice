@@ -1,6 +1,6 @@
 export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
   if (userMistakesCount == 0 && userKeyTypeCount == 0) {
-    return `CPM: 0 Wrong Chars: 0%`;
+    return 'CPM: 0 Wrong Chars: 0%';
   }
 
   let minutes = seconds / 60;
