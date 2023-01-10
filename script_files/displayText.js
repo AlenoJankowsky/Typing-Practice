@@ -23,7 +23,7 @@ function removeWhitespaces(text) {
 }
 
 export function charArrayIntoString(textArray) {
-  let resultString = textArray.join();
+  const resultString = textArray.join();
 
 
   return removeWhitespaces(resultString);
