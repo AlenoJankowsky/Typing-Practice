@@ -16,7 +16,7 @@ export function cleanText(text) {
   return resultText;
 }
 
-function cleanTextWithoutCommaWhitespace(text) {
+function removeWhitespaces(text) {
   const resultText = text.replaceAll(',', "");
 
   return resultText
@@ -26,7 +26,7 @@ export function charArrayIntoString(textArray) {
   let resultString = textArray.join();
 
 
-  return cleanTextWithoutCommaWhitespace(resultString);
+  return removeWhitespaces(resultString);
 }
 
 export function markCurrentChar(paragraphWithText, charIndex) {
