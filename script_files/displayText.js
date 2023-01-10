@@ -17,8 +17,7 @@ export function cleanText(text) {
 }
 
 function cleanTextWithoutCommaWhitespace(text) {
-  const resultText = text
-    .replaceAll(',', "");
+  const resultText = text.replaceAll(',', "");
 
   return resultText
 }
