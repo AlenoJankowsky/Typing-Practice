@@ -59,7 +59,7 @@ generateTextButton.addEventListener('click', async function() {
     const charactersPerMinute = userKeyTypeCount / minutes;
 
     if (userKeyTypeCount == 0) {
-      statsText.innerHTML = `CPM: 0, Wrong Chars: 0%`;
+      statsText.innerHTML = 'CPM: 0, Wrong Chars: 0%';
     }
     else {
       statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
