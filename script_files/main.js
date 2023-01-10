@@ -1,4 +1,4 @@
-import {displayStats, displayTotalStats, displayTodayStats, showExtendedStats} from "./displayStats.js";
+import {displayStats, displayTotalStats, displayTodayStats, toggleExtendedStats} from "./displayStats.js";
 import {generateText} from "./generateText.js";
 import {markCurrentChar} from "./displayText.js";
 import {handleKeyDownEvent} from "./handleKeyDownEvent.js";
@@ -14,7 +14,7 @@ const statsText = document.getElementById('last-set-stats-text');
 const statsTextForSeconds = document.getElementById('last-set-stats-time-text');
 const extendedStatsText = document.getElementById('extended-stats-text');
 const extendedStatsContainer = document .getElementById('extended-stats-canvas');
-const showExtendedStatsButton = document.getElementById('show-extended-stats')
+const toggleExtendedStatsButton = document.getElementById('show-extended-stats')
 const todayStatsTextContainer = document.getElementById('today-stats-text');
 const totalStatsTextContainer = document.getElementById('total-stats-text');
 const deleteTodayStatsButton = document.getElementById('delete-today-stats');
@@ -156,8 +156,8 @@ resetProgressButton.addEventListener('click', function() {
   resetProgress();
 });
 
-showExtendedStatsButton.addEventListener('click', function() {
-  showExtendedStats(extendedStatsContainer)
+toggleExtendedStatsButton.addEventListener('click', function() {
+  toggleExtendedStats(extendedStatsContainer)
 });
 
 deleteTodayStatsButton.addEventListener('click', resetLocalStorageForTodayStats);
