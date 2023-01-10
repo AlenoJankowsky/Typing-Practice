@@ -43,7 +43,7 @@ statsText.innerHTML = displayStats(0, 0);
 todayStatsTextContainer.innerHTML = displayTodayStats();
 totalStatsTextContainer.innerHTML = displayTotalStats();
 
-let firstTryCounter = 0;
+let tryCounter = 0;
 
 generateTextButton.addEventListener('click', async function() {
   if (generateTextButtonIsClicked) {
@@ -82,7 +82,7 @@ resetProgressButton.addEventListener('click', function() {
 let keyDownHandler = async function(event) {
   const userInput = event.code;
   const userInputIsCorrect = charArray[charIndex] == event.key;
-  const isFirstTry = firstTryCounter == 0;
+  const isFirstTry = tryCounter == 0;
 
   if (generateTextButtonIsClicked) {
     keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
@@ -112,13 +112,13 @@ let keyDownHandler = async function(event) {
     extendedStatsText.innerHTML = extendedStatsString;
 
     if (!userInputIsCorrect) {
-      firstTryCounter ++;
+      tryCounter ++;
       userMistakesCount ++;
       localStorage.todayMistypes = parseInt(localStorage.todayMistypes) + 1;
       localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
     }
     else {
-      firstTryCounter = 0;
+      tryCounter = 0;
     }
 
     if (userInput != 'Space') {
