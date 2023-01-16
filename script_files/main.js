@@ -52,7 +52,7 @@ generateTextButton.addEventListener('click', async function() {
     const userInput = event.code;
     const userInputIsCorrect = charArray[charIndex] == event.key;
     const isFirstTry = tryCounter == 0;
-    const isBeginOfTyping = userKeyTypeCount == 0 && !isFirstKeyDownHandlerIteration;
+    const isBeginOfTyping = userKeyTypeCount == 0;
 
     if (isBeginOfTyping) {
       beginCounting();
@@ -62,10 +62,9 @@ generateTextButton.addEventListener('click', async function() {
       keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
         const isTheCorrectlyTypedKey = keyBoardKeyEntryInArray[0] == (event.key).toUpperCase();
         if (isFirstTry && userInputIsCorrect) {
-  
           if (isTheCorrectlyTypedKey) {
             keyBoardKeyEntryInArray[1]++; 
-          } 
+          }
         }
   
         if (isTheCorrectlyTypedKey) {
@@ -141,8 +140,6 @@ generateTextButton.addEventListener('click', async function() {
       }
     }, 1000);
   };
-
-  beginCounting();
   
   if (generateTextButtonIsClicked) {
     clearInterval(incrementSecondsInterval);
