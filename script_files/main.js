@@ -46,36 +46,6 @@ totalStatsTextContainer.innerHTML = displayTotalStats();
 let tryCounter = 0;
 
 generateTextButton.addEventListener('click', async function() {
-  if (generateTextButtonIsClicked) {
-    resetProgress();
-    document.removeEventListener('keydown', keyDownHandler);
-    clearInterval(incrementSecondsInterval);
-  }
-
-  charArray = await generateText(paragraphWithText);
-  var incrementSecondsInterval; 
-
-  function beginCounting() {
-    incrementSecondsInterval = setInterval(function() {
-      seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer);
-      let minutes = seconds / 60;
-      const charactersPerMinute = userKeyTypeCount / minutes;
-  
-      if (userKeyTypeCount == 0) {
-        statsText.innerHTML = 'CPM: 0, Wrong Chars: 0%';
-      }
-      else {
-        statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
-      }
-    }, 1000);
-  };
-
-  beginCounting();
-  
-  if (generateTextButtonIsClicked) {
-    clearInterval(incrementSecondsInterval);
-  }
-
   let isFirstKeyDownHandlerIteration = true;
 
   let keyDownHandler = async function(event) {
@@ -147,7 +117,36 @@ generateTextButton.addEventListener('click', async function() {
       isFirstKeyDownHandlerIteration = false;
     }
   }
+
+  if (generateTextButtonIsClicked) {
+    resetProgress();
+    document.removeEventListener('keydown', keyDownHandler);
+    clearInterval(incrementSecondsInterval);
+  }
+
+  charArray = await generateText(paragraphWithText);
+  var incrementSecondsInterval; 
+
+  function beginCounting() {
+    incrementSecondsInterval = setInterval(function() {
+      seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer);
+      let minutes = seconds / 60;
+      const charactersPerMinute = userKeyTypeCount / minutes;
   
+      if (userKeyTypeCount == 0) {
+        statsText.innerHTML = 'CPM: 0, Wrong Chars: 0%';
+      }
+      else {
+        statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
+      }
+    }, 1000);
+  };
+
+  beginCounting();
+  
+  if (generateTextButtonIsClicked) {
+    clearInterval(incrementSecondsInterval);
+  }
 
   paragraphWithText.innerHTML = markCurrentChar(paragraphWithText, charIndex);
   document.addEventListener('keydown', keyDownHandler);
