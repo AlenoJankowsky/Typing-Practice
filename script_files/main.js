@@ -44,104 +44,96 @@ todayStatsTextContainer.innerHTML = displayTodayStats();
 totalStatsTextContainer.innerHTML = displayTotalStats();
 
 let tryCounter = 0;
+var incrementSecondsInterval; 
+
+function beginCounting() {
+  incrementSecondsInterval = setInterval(function() {
+    seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer);
+    let minutes = seconds / 60;
+    const charactersPerMinute = userKeyTypeCount / minutes;
+
+    if (userKeyTypeCount == 0) {
+      statsText.innerHTML = 'CPM: 0, Wrong Chars: 0%';
+    }
+    else {
+      statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
+    }
+  }, 1000);
+};
+
+let keyDownHandler = async function(event) {
+  const userInput = event.code;
+  const userInputIsCorrect = charArray[charIndex] == event.key;
+  const isFirstTry = tryCounter == 0;
+  const isBeginOfTyping = userKeyTypeCount == 0;
+
+  if (isBeginOfTyping) {
+    beginCounting();
+  }
+
+  if (generateTextButtonIsClicked) {
+    keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
+      const isTheCorrectlyTypedKey = keyBoardKeyEntryInArray[0] == (event.key).toUpperCase();
+      if (isFirstTry && userInputIsCorrect) {
+        if (isTheCorrectlyTypedKey) {
+          keyBoardKeyEntryInArray[1]++; 
+        }
+      }
+
+      if (isTheCorrectlyTypedKey) {
+        keyBoardKeyEntryInArray[2]++;
+      }
+    });
+
+    extendedStatsString = "";
+    keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
+      let computedValue = Math.round(keyBoardKeyEntryInArray[1] / keyBoardKeyEntryInArray[2] * 100);
+      if (keyBoardKeyEntryInArray[1] == 0) {
+        computedValue = 0;
+      }
+      
+      extendedStatsString += `${keyBoardKeyEntryInArray[0]} ${computedValue}%<br>`;
+    });
+    
+    extendedStatsText.innerHTML = extendedStatsString;
+
+    if (!userInputIsCorrect) {
+      tryCounter ++;
+      userMistakesCount ++;
+      localStorage.todayMistypes = parseInt(localStorage.todayMistypes) + 1;
+      localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
+    }
+    else {
+      tryCounter = 0;
+    }
+
+    if (userInput != 'Space') {
+      userKeyTypeCount ++;
+      localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
+      localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
+    }
+
+    const endOfArrayIsReached = charIndex === charArray.length - 1;
+    if (endOfArrayIsReached) {
+      clearInterval(incrementSecondsInterval);
+      charArray = await generateText(paragraphWithText);
+      resetProgress();
+      localStorage.todayAmountOfSets = parseInt(localStorage.todayAmountOfSets) + 1;
+      localStorage.totalAmountOfSets = parseInt(localStorage.totalAmountOfSets) + 1;
+
+      return;
+    }  
+
+    charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsTextContainer, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
+  }
+}
 
 generateTextButton.addEventListener('click', async function() {
-  let isFirstKeyDownHandlerIteration = true;
-
-  let keyDownHandler = async function(event) {
-    const userInput = event.code;
-    const userInputIsCorrect = charArray[charIndex] == event.key;
-    const isFirstTry = tryCounter == 0;
-    const isBeginOfTyping = userKeyTypeCount == 0;
-
-    if (isBeginOfTyping) {
-      beginCounting();
-    }
-
-    if (generateTextButtonIsClicked) {
-      keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
-        const isTheCorrectlyTypedKey = keyBoardKeyEntryInArray[0] == (event.key).toUpperCase();
-        if (isFirstTry && userInputIsCorrect) {
-          if (isTheCorrectlyTypedKey) {
-            keyBoardKeyEntryInArray[1]++; 
-          }
-        }
-  
-        if (isTheCorrectlyTypedKey) {
-          keyBoardKeyEntryInArray[2]++;
-        }
-      });
-  
-      extendedStatsString = "";
-      keyboardKeysArray.forEach(function(keyBoardKeyEntryInArray) {
-        let computedValue = Math.round(keyBoardKeyEntryInArray[1] / keyBoardKeyEntryInArray[2] * 100);
-        if (keyBoardKeyEntryInArray[1] == 0) {
-          computedValue = 0;
-        }
-        
-        extendedStatsString += `${keyBoardKeyEntryInArray[0]} ${computedValue}%<br>`;
-      });
-      
-      extendedStatsText.innerHTML = extendedStatsString;
-  
-      if (!userInputIsCorrect) {
-        tryCounter ++;
-        userMistakesCount ++;
-        localStorage.todayMistypes = parseInt(localStorage.todayMistypes) + 1;
-        localStorage.totalMistypes = parseInt(localStorage.totalMistypes) + 1;
-      }
-      else {
-        tryCounter = 0;
-      }
-  
-      if (userInput != 'Space') {
-        userKeyTypeCount ++;
-  
-        localStorage.todayCharsTyped = parseInt(localStorage.todayCharsTyped) + 1;
-        localStorage.totalCharsTyped = parseInt(localStorage.totalCharsTyped) + 1;
-      }
-  
-      const endOfArrayIsReached = charIndex === charArray.length - 1;
-      if (endOfArrayIsReached) {
-        clearInterval(incrementSecondsInterval);
-        charArray = await generateText(paragraphWithText);
-        resetProgress();
-        localStorage.todayAmountOfSets = parseInt(localStorage.todayAmountOfSets) + 1;
-        localStorage.totalAmountOfSets = parseInt(localStorage.totalAmountOfSets) + 1;
-  
-        return;
-      }  
-  
-      charIndex = handleKeyDownEvent(event, paragraphWithText, statsText, todayStatsTextContainer, charArray, charIndex, seconds, userKeyTypeCount, userMistakesCount);
-      isFirstKeyDownHandlerIteration = false;
-    }
-  }
-
-  if (generateTextButtonIsClicked) {
-    resetProgress();
-    document.removeEventListener('keydown', keyDownHandler);
-    clearInterval(incrementSecondsInterval);
-  }
-
   charArray = await generateText(paragraphWithText);
-  var incrementSecondsInterval; 
 
-  function beginCounting() {
-    incrementSecondsInterval = setInterval(function() {
-      seconds = incrementSeconds(seconds, statsTextForSeconds, todayStatsTextContainer, totalStatsTextContainer);
-      let minutes = seconds / 60;
-      const charactersPerMinute = userKeyTypeCount / minutes;
-  
-      if (userKeyTypeCount == 0) {
-        statsText.innerHTML = 'CPM: 0, Wrong Chars: 0%';
-      }
-      else {
-        statsText.innerHTML = `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount * 100 / userKeyTypeCount * 100) / 100)}%`;
-      }
-    }, 1000);
-  };
-  
   if (generateTextButtonIsClicked) {
+    document.removeEventListener('keydown', keyDownHandler);
+    resetProgress();
     clearInterval(incrementSecondsInterval);
   }
 
