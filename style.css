@@ -145,3 +145,21 @@ body {
   background-color: lightgray;
   border: 2px solid black;
 }
+
+.extended-stats-container {
+  position: absolute;
+  display: none;
+  background-color: gray;
+  height: 60%;
+  width: 8%;
+  left: 52%;
+  border: 2px solid black;
+}
+
+.extended-stats-container__text {
+  position: relative;
+  font-size: 12pt;
+  height: 100%;
+  text-align: center;
+  padding-right: 5px;
+}

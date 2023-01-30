@@ -1,12 +1,12 @@
 export function displayStats(userMistakesCount, userKeyTypeCount, seconds) {
   if (userMistakesCount == 0 && userKeyTypeCount == 0) {
-    return 'CPM: ' + '0 ' + 'Wrong Chars: ' + '0%';
+    return 'CPM: 0 Wrong Chars: 0%';
   }
 
   let minutes = seconds / 60;
   const charactersPerMinute = userKeyTypeCount / minutes;
   
-  return 'CPM: '+ Math.round(charactersPerMinute) + ' ' + 'Wrong Chars: ' + Math.round((userMistakesCount / userKeyTypeCount) * 100) + '%';
+  return `CPM: ${Math.round(charactersPerMinute)} Wrong Chars: ${Math.round((userMistakesCount / userKeyTypeCount) * 100)}%`;
 }
 
 export function displayTodayStats() {
@@ -15,6 +15,15 @@ export function displayTodayStats() {
 
 export function displayTotalStats() {
   return putTogetherStringsForStats('totalTotalSeconds', 'totalCharsTyped', 'totalMistypes', 'totalAmountOfSets');
+}
+
+export function toggleExtendedStats(extendedStatsContainer) {
+  if (extendedStatsContainer.style.display == 'none' || extendedStatsContainer.style.display == '') {
+    extendedStatsContainer.style.display = 'block';
+  }
+  else {
+    extendedStatsContainer.style.display = 'none';
+  }
 }
 
 function putTogetherStringsForStats(stringForSeconds, stringForCharsTyped, stringForMistypes, stringForAmountOfSets) {
@@ -31,7 +40,7 @@ function putTogetherStringsForStats(stringForSeconds, stringForCharsTyped, strin
   charactersPerMinute = preventNaNs(charactersPerMinute);
   charsTyped = preventNaNs(charsTyped);
 
-  return sets + ', ' + 'Chars typed: ' +  charsTyped + ', ' + 'CPM: '+  charactersPerMinute + ', ' + 'Time: ' +  time + 's' + ', ' + 'Mistake Ratio: ' + mistakeRatioWithThreeDecimalPlaces  + '%';
+  return `${sets}, Chars typed:  ${charsTyped}, CPM: ${charactersPerMinute}, Time: ${time}s, Mistake Ratio: ${mistakeRatioWithThreeDecimalPlaces}%`;
 }
 
 function preventNaNs(valueOfVariable) {

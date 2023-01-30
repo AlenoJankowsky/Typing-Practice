@@ -16,13 +16,17 @@ export function cleanText(text) {
   return resultText;
 }
 
-export function charArrayIntoString(textArray) {
-  var resultString = "";
-  for (const char of textArray) {
-    resultString += char;
-  }
+function removeWhitespaces(text) {
+  const resultText = text.replaceAll(',', "");
 
-  return resultString;
+  return resultText
+}
+
+export function charArrayIntoString(textArray) {
+  const resultString = textArray.join();
+
+
+  return removeWhitespaces(resultString);
 }
 
 export function markCurrentChar(paragraphWithText, charIndex) {

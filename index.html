@@ -9,7 +9,6 @@
   <body>
     <div class="welcome-container">
       <h1 class="welcome-container__headline">Welcome</h1>
-      <p class="welcome-container__paragraph">TODO: General description of how the website works</p>
     </div>
     <div class="stats-container">
       <p class="stats-container__headline">Stats</p>
@@ -19,7 +18,7 @@
       <p class="stats-container__today-text" id="today-stats-text"></p>
       <p class="stats-container__total-headline">Total</p>
       <p class="stats-container__total-text" id="total-stats-text"></p>
-      <button class="stats-container__more-stats-button">More Stats</button>
+      <button id="show-extended-stats" class="stats-container__more-stats-button">More Stats</button>
       <button id="delete-today-stats" class="stats-container__delete-today-stats">DELETE TODAY STATS</button>
       <button id="delete-total-stats" class="stats-container__delete-total-stats">DELETE TOTAL STATS</button>
     </div>
@@ -35,6 +34,8 @@
         <p id="text" class="typing-area__text"></p>
       </div>
     </div>
+    <div id="extended-stats-canvas" class="extended-stats-container">
+      <p id="extended-stats-text" class="extended-stats-container__text"></p>
     </div>
   </body>
   <script type="module" src="script_files/main.js"></script>
